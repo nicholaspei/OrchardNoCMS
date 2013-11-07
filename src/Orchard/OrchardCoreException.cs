@@ -19,6 +19,7 @@ namespace Orchard {
 
         protected OrchardCoreException(SerializationInfo info, StreamingContext context)
             : base(info, context) {
+           
         }
 
         public LocalizedString LocalizedMessage { get { return _localizedMessage; } }

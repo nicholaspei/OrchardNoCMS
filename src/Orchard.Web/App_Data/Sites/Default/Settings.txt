@@ -1,0 +1,12 @@
+State: Running
+Themes: 
+Name: Default
+DataProvider: SqlServer
+DataConnectionString: Data Source=192.168.43.68;Initial Catalog=OC;Persist Security Info=True;User ID=sa;Password=123.abc
+DataTablePrefix: null
+RequestUrlHost: null
+RequestUrlPrefix: null
+EncryptionAlgorithm: AES
+EncryptionKey: AB7DA76427A499C876BD8696633464D6F126F8BE70F22CAE089C6E955CFD655E
+HashAlgorithm: HMACSHA256
+HashKey: 4B287FD9E1C3E56DD6DD067B814A5CCA9B87683B0D8EF9333B52F01E7AEDC99B788EF4E38EC171BB2AC4C1A1247743C6C2E74B16113D0DC9AD84982DBAD07DEF

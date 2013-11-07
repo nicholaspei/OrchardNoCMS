@@ -143,14 +143,6 @@
       <Project>{2D1D92BB-4555-4CBE-8D0E-63563D6CE4C6}</Project>
       <Name>Orchard.Framework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Tools\Orchard\Orchard.csproj">
-      <Project>{33B1BC8D-E292-4972-A363-22056B207156}</Project>
-      <Name>Orchard</Name>
-    </ProjectReference>
-    <ProjectReference Include="Core\Orchard.Core.csproj">
-      <Project>{9916839C-39FC-4CEB-A5AF-89CA7E87119F}</Project>
-      <Name>Orchard.Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Config\Host.config" />
@@ -236,8 +228,7 @@
 		 Other similar extension points exist, see Microsoft.Common.targets.
 	<Target Name="BeforeBuild">
 	</Target> -->
-	
-	<Target Name="ExcludeRootBinariesDeployment">
+  <Target Name="ExcludeRootBinariesDeployment">
     <ItemGroup>
       <RootBinFiles Include="bin\*">
         <InProject>false</InProject>
@@ -246,14 +237,12 @@
     <PropertyGroup>
       <ExcludeFilesFromDeployment>@(RootBinFiles->'Modules\**\bin\%(Filename)%(Extension)');@(RootBinFiles->'Themes\**\%(Filename)%(Extension)');@(RootBinFiles->'Core\**\bin\%(Filename)%(Extension)');**\*.Debug.config;**\*.Release.config;**\obj\**;**\bin\*.xml;**\*.cs;**\*.csproj;Modules\**\Tests\**;Modules\**\Specs\**;Themes\bin\**;**\.hgignore;**\.hgtags;**\.hg\**;**\*.csproj.user;Properties\**\*;App_Data\Dependencies\*;App_Data\RecipeQueue\*;App_Data\Logs\*;App_Data\**\mappings.bin;App_Data\**\cache.dat;App_Data\**\hrestart.txt</ExcludeFilesFromDeployment>
     </PropertyGroup>
-	</Target>
-	
+  </Target>
   <Target Name="ExcludeRootBinariesPackage" DependsOnTargets="ExcludeRootBinariesDeployment" BeforeTargets="ExcludeFilesFromPackage">
     <ItemGroup>
       <ExcludeFromPackageFiles Include="$(ExcludeFilesFromDeployment)" />
     </ItemGroup>
   </Target>
-
   <Target Name="CopySqlCeBinaries">
     <ItemGroup>
       <SqlCeBinariesx86 Include="$(ProjectDir)..\..\lib\sqlce\x86\**\*" />

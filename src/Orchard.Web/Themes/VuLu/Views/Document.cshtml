@@ -1,0 +1,23 @@
+﻿@using Orchard.Mvc.Html;
+@using Orchard.UI.Resources;
+@{
+    RegisterLink(new LinkEntry {Type = "image/x-icon", Rel = "shortcut icon", Href = Url.Content("~/Media/Default/favicon/FavIcon.png")});
+}
+<!DOCTYPE html> 
+<html lang="en" class="static @Html.ClassForPage()"> 
+<head> 
+    <meta charset="utf-8" /> 
+    <title>@Layout.Title()</title>
+    <script type="text/javascript">
+      WebFontConfig={google:{families:['IM Fell English SC','OFL Sorts Mill Goudy TT']}};
+      document.documentElement.className="dyn";
+    </script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js"></script>
+    @Display(Model.Head)
+    
+</head> 
+<body> 
+@Display(Model.Body)
+@Display(Model.Tail)
+</body>
+</html>

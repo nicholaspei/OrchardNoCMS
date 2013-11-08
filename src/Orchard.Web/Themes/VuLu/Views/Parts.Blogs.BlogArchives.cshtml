@@ -1,0 +1,25 @@
+﻿@using Orchard.Blogs.Extensions;
+@using Orchard.Blogs.Models;
+@{
+    Style.Require("BlogsArchives");
+    Script.Require("BlogsArchives");
+    IEnumerable<KeyValuePair<ArchiveData, int>> archives = Model.Archives;
+}
+<div class="archives">
+    <ul class="years">
+        @{
+            int lastYear = archives.First().Key.Year;
+            int firstYear = archives.Last().Key.Year;
+        }
+        @for (int year = lastYear; year >= firstYear; year--) {
+            var yearMonths = archives.Where(m => m.Key.Year == year);
+            
+            <li @if (year != lastYear) {<text>class="previous"</text>}>
+                <h4>@year <span>(@yearMonths.Sum(ym => ym.Value))</span></h4>
+                @Html.UnorderedList(yearMonths, (t, i) => Html.Link(
+                    string.Format("{0:MMMM} ({1})", t.Key.ToDateTime(), t.Value),
+                    Url.BlogArchiveMonth((BlogPart)Model.Blog, t.Key.Year, t.Key.Month)), "archiveMonthList")
+            </li>
+        }
+    </ul>
+</div>

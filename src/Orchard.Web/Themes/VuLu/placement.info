@@ -1,0 +1,16 @@
+﻿<Placement>
+    <Match DisplayType="Summary">
+        <Place Parts_Tags_ShowTags="Footer:0" />
+        <Place Parts_Common_Metadata_Summary="Footer:1"/>
+        <Place Parts_Comments_Count="Footer:2" />
+    </Match>
+    <Match DisplayType="Detail" ContentType="BlogPost">
+        <Place Parts_Common_Metadata="Content:9"/>
+        <Place Parts_Tags_ShowTags="Content:8.2" />
+    </Match>
+    <Match DisplayType="Detail" ContentType="Page">
+        <Place Parts_Common_Metadata="-"/>
+        <Place Parts_Tags_ShowTags="-" />
+    </Match>
+    <Place Parts_Feedburner="Content:after"/>
+</Placement>

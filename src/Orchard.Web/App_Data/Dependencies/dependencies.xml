@@ -1,9 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Dependencies>
   <Dependency>
+    <ModuleName>Orchard.CodeGeneration</ModuleName>
+    <VirtualPath>~/Modules/Orchard.CodeGeneration/Orchard.CodeGeneration.csproj</VirtualPath>
+    <LoaderName>DynamicExtensionLoader</LoaderName>
+    <References />
+  </Dependency>
+  <Dependency>
     <ModuleName>SafeMode</ModuleName>
     <VirtualPath>~/Theme/SafeMode</VirtualPath>
     <LoaderName>RawThemeExtensionLoader</LoaderName>
+    <References />
+  </Dependency>
+  <Dependency>
+    <ModuleName>Settings</ModuleName>
+    <VirtualPath>~/Core/Settings</VirtualPath>
+    <LoaderName>CoreExtensionLoader</LoaderName>
     <References />
   </Dependency>
   <Dependency>

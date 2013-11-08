@@ -128,6 +128,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Sites\Default\Orchard.sdf" />
     <Content Include="Global.asax" />
     <Content Include="Refresh.html" />
     <Content Include="Web.config">
@@ -142,6 +143,10 @@
     <ProjectReference Include="..\Orchard\Orchard.Framework.csproj">
       <Project>{2D1D92BB-4555-4CBE-8D0E-63563D6CE4C6}</Project>
       <Name>Orchard.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="Core\Orchard.Core.csproj">
+      <Project>{9916839c-39fc-4ceb-a5af-89ca7e87119f}</Project>
+      <Name>Orchard.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -200,9 +205,7 @@
       <DependentUpon>HostComponents.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
     <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
   </Target>

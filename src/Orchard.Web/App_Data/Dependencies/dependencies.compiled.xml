@@ -1,2 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Dependencies />
+<Dependencies>
+  <Dependency>
+    <ExtensionId>Orchard.CodeGeneration</ExtensionId>
+    <LoaderName>DynamicExtensionLoader</LoaderName>
+    <VirtualPath>~/Modules/Orchard.CodeGeneration/Orchard.CodeGeneration.csproj</VirtualPath>
+    <Hash>2388b9dd674ea5dd</Hash>
+  </Dependency>
+</Dependencies>

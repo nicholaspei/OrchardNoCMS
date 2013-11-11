@@ -1,9 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Dependencies>
   <Dependency>
+    <ModuleName>HelloWorld</ModuleName>
+    <VirtualPath>~/Modules/HelloWorld/bin/HelloWorld.dll</VirtualPath>
+    <LoaderName>PrecompiledExtensionLoader</LoaderName>
+    <References />
+  </Dependency>
+  <Dependency>
     <ModuleName>Orchard.CodeGeneration</ModuleName>
-    <VirtualPath>~/Modules/Orchard.CodeGeneration/Orchard.CodeGeneration.csproj</VirtualPath>
-    <LoaderName>DynamicExtensionLoader</LoaderName>
+    <VirtualPath>~/Modules/Orchard.CodeGeneration/bin/Orchard.CodeGeneration.dll</VirtualPath>
+    <LoaderName>PrecompiledExtensionLoader</LoaderName>
+    <References />
+  </Dependency>
+  <Dependency>
+    <ModuleName>Orchard.Modules</ModuleName>
+    <VirtualPath>~/Modules/Orchard.Modules/bin/Orchard.Modules.dll</VirtualPath>
+    <LoaderName>PrecompiledExtensionLoader</LoaderName>
+    <References />
+  </Dependency>
+  <Dependency>
+    <ModuleName>Orchard.Themes</ModuleName>
+    <VirtualPath>~/Modules/Orchard.Themes/bin/Orchard.Themes.dll</VirtualPath>
+    <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <References />
   </Dependency>
   <Dependency>
@@ -19,6 +37,12 @@
     <References />
   </Dependency>
   <Dependency>
+    <ModuleName>Shapes</ModuleName>
+    <VirtualPath>~/Core/Shapes</VirtualPath>
+    <LoaderName>CoreExtensionLoader</LoaderName>
+    <References />
+  </Dependency>
+  <Dependency>
     <ModuleName>TheAdmin</ModuleName>
     <VirtualPath>~/Theme/TheAdmin</VirtualPath>
     <LoaderName>RawThemeExtensionLoader</LoaderName>
@@ -27,6 +51,12 @@
   <Dependency>
     <ModuleName>TheThemeMachine</ModuleName>
     <VirtualPath>~/Theme/TheThemeMachine</VirtualPath>
+    <LoaderName>RawThemeExtensionLoader</LoaderName>
+    <References />
+  </Dependency>
+  <Dependency>
+    <ModuleName>VuLu</ModuleName>
+    <VirtualPath>~/Theme/VuLu</VirtualPath>
     <LoaderName>RawThemeExtensionLoader</LoaderName>
     <References />
   </Dependency>

@@ -1,0 +1,10 @@
+﻿Name: HelloWorld
+AntiForgery: enabled
+Author: The Orchard Team
+Website: http://orchardproject.net
+Version: 0.5.0
+OrchardVersion: 1.7.1
+Description: Description for the module
+Features:
+    HelloWorld:
+        Description: Description for feature HelloWorld.

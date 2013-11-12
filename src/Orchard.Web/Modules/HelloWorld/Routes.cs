@@ -30,7 +30,7 @@ namespace HelloWorld
                             {"area", "HelloWorld"}
                         },
                         new MvcRouteHandler())
-                }
+                }                
             };
         }
     }

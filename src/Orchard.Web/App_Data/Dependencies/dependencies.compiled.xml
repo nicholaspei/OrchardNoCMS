@@ -4,24 +4,24 @@
     <ExtensionId>HelloWorld</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/HelloWorld/bin/HelloWorld.dll</VirtualPath>
-    <Hash>48f28a9f5f1dbd40</Hash>
+    <Hash>48f28da2adbb6d88</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>Orchard.CodeGeneration</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/Orchard.CodeGeneration/bin/Orchard.CodeGeneration.dll</VirtualPath>
-    <Hash>49176ab2b38cdf76</Hash>
+    <Hash>49176cdfb9bec55c</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>Orchard.Modules</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/Orchard.Modules/bin/Orchard.Modules.dll</VirtualPath>
-    <Hash>4900fa9c4103e50e</Hash>
+    <Hash>4900fcc9475020c7</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>Orchard.Themes</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/Orchard.Themes/bin/Orchard.Themes.dll</VirtualPath>
-    <Hash>48fd62a836902001</Hash>
+    <Hash>48fd64c5aeee8650</Hash>
   </Dependency>
 </Dependencies>

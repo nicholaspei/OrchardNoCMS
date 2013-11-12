@@ -90,6 +90,10 @@ namespace Orchard.Core.Settings.Controllers {
             return RedirectToAction("Culture");
         }
 
+        public ActionResult Hello()
+        {
+            return View();
+        }
       
     }
 }

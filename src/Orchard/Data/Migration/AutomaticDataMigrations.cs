@@ -28,8 +28,10 @@ namespace Orchard.Data.Migration {
 
             // Let's make sure that the basic set of features is enabled.  If there are any that are not enabled, then let's enable them first.
             var theseFeaturesShouldAlwaysBeActive = new[] {
-                "Common", "Containers", "Contents", "Dashboard", "Feeds", "Navigation", "Reports", "Scheduling", "Settings", "Shapes", "Title"
+                //"Common", "Containers", "Contents", "Dashboard", "Feeds", "Navigation", "Reports", "Scheduling", "Settings", "Shapes", "Title"
+                "Settings", "Shapes" //===> 默认需要启动的模块，因为我们这里去掉了Core中的很多模块，所以需要修改这个数组
             };
+
 
             var enabledFeatures = _featureManager.GetEnabledFeatures().Select(f => f.Id).ToList();
             var featuresToEnable = theseFeaturesShouldAlwaysBeActive.Where(shouldBeActive => !enabledFeatures.Contains(shouldBeActive)).ToList();

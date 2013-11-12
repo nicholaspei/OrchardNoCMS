@@ -28,6 +28,7 @@ namespace Orchard.Core.Settings.Services {
             item.SiteName = "Test Site";
             item.SuperUser = "admin";
             item.PageTitleSeparator = " - ";
+            item.HomePage = "OrchardLocal";
             item.SiteCulture = "en-US";
             item.ResourceDebugMode = ResourceDebugMode.FromAppSetting;
             item.PageSize = 10;

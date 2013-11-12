@@ -10,5 +10,15 @@ namespace HelloWorld.Controllers
         {
             return View();
         }
+
+        public ActionResult TestUpdate()
+        {
+            return View();
+        }
+
+        public ActionResult TestUpdateA()
+        {
+            return View();
+        }
     }
 }

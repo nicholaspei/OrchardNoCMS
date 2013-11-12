@@ -30,7 +30,37 @@ namespace HelloWorld
                             {"area", "HelloWorld"}
                         },
                         new MvcRouteHandler())
-                }                
+                },    
+                new RouteDescriptor {
+                    Priority = 5,
+                    Route = new Route(
+                        "TestUpdate",
+                        new RouteValueDictionary {
+                            {"area", "HelloWorld"},
+                            {"controller", "Home"},
+                            {"action", "TestUpdate"}
+                        },
+                        new RouteValueDictionary(),
+                        new RouteValueDictionary {
+                            {"area", "HelloWorld"}
+                        },
+                        new MvcRouteHandler())
+                },    
+                new RouteDescriptor {
+                    Priority = 5,
+                    Route = new Route(
+                        "TestUpdateA",
+                        new RouteValueDictionary {
+                            {"area", "HelloWorld"},
+                            {"controller", "Home"},
+                            {"action", "TestUpdateA"}
+                        },
+                        new RouteValueDictionary(),
+                        new RouteValueDictionary {
+                            {"area", "HelloWorld"}
+                        },
+                        new MvcRouteHandler())
+                }
             };
         }
     }

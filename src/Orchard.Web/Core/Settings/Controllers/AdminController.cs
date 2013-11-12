@@ -88,12 +88,6 @@ namespace Orchard.Core.Settings.Controllers {
 
             _cultureManager.DeleteCulture(cultureName);
             return RedirectToAction("Culture");
-        }
-
-        public ActionResult Hello()
-        {
-            return View();
-        }
-      
+        }  
     }
 }

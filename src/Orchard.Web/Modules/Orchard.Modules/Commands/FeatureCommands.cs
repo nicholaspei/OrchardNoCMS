@@ -6,6 +6,7 @@ using Orchard.Environment.Features;
 using Orchard.Modules.Services;
 using Orchard.UI.Notify;
 using Orchard.Utility.Extensions;
+using Orchard.Data.Migration;
 
 namespace Orchard.Modules.Commands {
     public class FeatureCommands : DefaultOrchardCommandHandler {
@@ -13,12 +14,14 @@ namespace Orchard.Modules.Commands {
         private readonly INotifier _notifier;
         private readonly IFeatureManager _featureManager;
         private readonly ShellDescriptor _shellDescriptor;
+        private readonly IDataMigrationManager _dataMigrationManager;
 
-        public FeatureCommands(IModuleService moduleService, INotifier notifier, IFeatureManager featureManager, ShellDescriptor shellDescriptor) {
+        public FeatureCommands(IModuleService moduleService, INotifier notifier,IDataMigrationManager dataMigrationManager, IFeatureManager featureManager, ShellDescriptor shellDescriptor) {
             _moduleService = moduleService;
             _notifier = notifier;
             _featureManager = featureManager;
             _shellDescriptor = shellDescriptor;
+            _dataMigrationManager = dataMigrationManager;
         }
 
         [OrchardSwitch]
@@ -89,6 +92,15 @@ namespace Orchard.Modules.Commands {
             Context.Output.WriteLine(T("Disabling features {0}", string.Join(",", featureNames)));
             _moduleService.DisableFeatures(featureNames, true);
             Context.Output.WriteLine(T("Disabled features  {0}", string.Join(",", featureNames)));
+        }
+
+        [CommandHelp("feature update <feature-name-1> ... <feature-name-n>\r\n\t" + "Disable one or more features")]
+        [CommandName("feature update")]
+        public void Update(params string[] featureNames) {
+            Context.Output.WriteLine(T("Start update features"));
+            _moduleService.DisableFeatures(featureNames);
+            _moduleService.EnableFeatures(featureNames);
+            Context.Output.WriteLine(T("Updated features  {0}", string.Join(",", featureNames)));
         }
     }
 }

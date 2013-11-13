@@ -70,6 +70,7 @@
     <Compile Include="Settings\AdminMenu.cs" />
     <Compile Include="Settings\Commands\SiteSettingsCommands.cs" />
     <Compile Include="Settings\Controllers\AdminController.cs" />
+    <Compile Include="Settings\Controllers\StartController.cs" />
     <Compile Include="Settings\Descriptor\Records\ShellDescriptorRecord.cs" />
     <Compile Include="Settings\Descriptor\Records\ShellFeatureRecord.cs" />
     <Compile Include="Settings\Descriptor\Records\ShellParameterRecord.cs" />
@@ -151,6 +152,9 @@
     <Content Include="Shapes\Views\ShapeResult\DisplayPartial.cshtml" />
     <Content Include="Shapes\Views\User.cshtml" />
     <Content Include="Shapes\Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Settings\Views\Start\StartPage.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

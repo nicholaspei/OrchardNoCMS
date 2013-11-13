@@ -149,7 +149,7 @@ namespace Orchard.Mvc.Routes {
                 }
                 catch {
                     _scope.Dispose();
-                    HttpContext.Current.Response.Redirect("/OrchardLocal/HelloWorld"); 
+                    HttpContext.Current.Response.Redirect("/OrchardLocal/StartPage"); 
                    // throw;
                     return null;
                 }

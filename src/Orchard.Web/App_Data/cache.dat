@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-16"?>
 <Tenants>
-  <Default>12|Orchard.Framework;Settings;Orchard.Modules;TheThemeMachine;Metro;VuLu;Orchard.CodeGeneration;Orchard.Themes;Shapes;HelloWorld;|</Default>
+  <Default>13|Orchard.Framework;Settings;Orchard.Modules;TheThemeMachine;Metro;VuLu;Orchard.CodeGeneration;Orchard.Themes;Shapes;|</Default>
 </Tenants>

@@ -11,6 +11,7 @@ using Orchard.Localization;
 using Orchard.Logging;
 using Orchard.Reports.Services;
 using Orchard.Data.Migration.Schema;
+using Orchard.Security;
 
 namespace Orchard.Data.Migration.Interpreters {
     public class DefaultDataMigrationInterpreter : AbstractDataMigrationInterpreter, IDataMigrationInterpreter {
@@ -323,24 +324,27 @@ namespace Orchard.Data.Migration.Interpreters {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities", Justification = "Nothing comes from user input.")]
         private void RunPendingStatements() {
 
-            //var session = _sessionLocator.For(typeof(ContentItemRecord));
+            var session = _sessionLocator.For(typeof(IUser));
 
-            //try {
-            //    foreach (var sqlStatement in _sqlStatements) {
-            //        Logger.Debug(sqlStatement);
+            try {
+                foreach (var sqlStatement in _sqlStatements)
+                {
+                    Logger.Debug(sqlStatement);
 
-            //        using (var command = session.Connection.CreateCommand()) {
-            //            command.CommandText = sqlStatement;
-            //            session.Transaction.Enlist(command);
-            //            command.ExecuteNonQuery();
-            //        }
-                 
-            //        _reportsCoordinator.Information("Data Migration", String.Format("Executing SQL Query: {0}", sqlStatement));
-            //    }
-            //}
-            //finally {
-            //    _sqlStatements.Clear();    
-            //}
+                    using (var command = session.Connection.CreateCommand())
+                    {
+                        command.CommandText = sqlStatement;
+                        session.Transaction.Enlist(command);
+                        command.ExecuteNonQuery();
+                    }
+
+                    _reportsCoordinator.Information("Data Migration", String.Format("Executing SQL Query: {0}", sqlStatement));
+                }
+            }
+            finally
+            {
+                _sqlStatements.Clear();
+            }
         }
 
         private bool ExecuteCustomInterpreter<T>(T command) where T : ISchemaBuilderCommand {

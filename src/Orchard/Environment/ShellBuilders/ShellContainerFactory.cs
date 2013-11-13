@@ -67,7 +67,7 @@ namespace Orchard.Environment.ShellBuilders {
                             .InstancePerLifetimeScope();
 
                         foreach (var interfaceType in item.Type.GetInterfaces()
-                            .Where(itf => typeof(IDependency).IsAssignableFrom(itf)
+                                .Where(itf => typeof(IDependency).IsAssignableFrom(itf)
                                       && !typeof(IEventHandler).IsAssignableFrom(itf))) {
                             registration = registration.As(interfaceType);
                             if (typeof(ISingletonDependency).IsAssignableFrom(interfaceType)) {

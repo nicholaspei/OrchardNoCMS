@@ -34,7 +34,7 @@ namespace Orchard.Car.Controllers
             {
                 return View("Index");
             }
-            return View("WhatEver");
+            return View("Whatever");
         }
     }
 }

@@ -12,6 +12,7 @@ namespace Orchard.Car.AOP
         {
             if (invocation.Method.Name == "CreateCar")
             {
+                invocation.Proceed();
                 invocation.ReturnValue = true;
             }
             else {

@@ -16,7 +16,7 @@ namespace Orchard.Car.Services
             _carInfoRepository = carInfoRepository;
         }
 
-        public bool CreateCar(Models.CarInfo item)
+        public virtual bool CreateCar(Models.CarInfo item)
         {
             try
             {

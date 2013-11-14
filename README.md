@@ -16,6 +16,7 @@ WIKI： [documentation](https://github.com/nicholaspei/OrchardNoCMS/wiki/_pages)
 
 ```
 DataProvider: SqlCe 修改为：DataProvider: SqlServer
-DataConnectionString: null 修改为：DataConnectionString:  Data Source=127.0.0.1;Initial Catalog=orchardnocms;Persist Security Info=True;User ID=xxx;Password=xxx;
+DataConnectionString: null 修改为：DataConnectionString:  Data Source=127.0.0.1;Initial Catalog=orchardnocms;
+Persist Security Info=True;User ID=xxx;Password=xxx;
 ```
 

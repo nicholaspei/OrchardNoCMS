@@ -28,7 +28,8 @@ namespace Orchard.Car.Controllers
 
         [HttpPost]
         public ActionResult Add(CarInfo model)
-        {          
+        {        
+            
             var result=_carInfoService.CreateCar(model);
             if (result)
             {
@@ -36,5 +37,12 @@ namespace Orchard.Car.Controllers
             }
             return View("Whatever");
         }
+
+        public JsonResult List()
+        {
+            var result = _carInfoService.GetList();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

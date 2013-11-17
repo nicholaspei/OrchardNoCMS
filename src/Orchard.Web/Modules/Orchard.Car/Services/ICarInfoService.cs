@@ -9,5 +9,7 @@ namespace Orchard.Car.Services
     public interface ICarInfoService:IDependency
     {
         bool CreateCar(CarInfo item);
+
+        object GetList();
     }
 }

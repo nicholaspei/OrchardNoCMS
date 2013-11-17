@@ -47,6 +47,20 @@ namespace Orchard.Car
                             {"area", "Orchard.Car"}                            
                         },
                         new MvcRouteHandler())
+                },
+                 new RouteDescriptor {
+                    Route = new Route(
+                        "car/list",
+                        new RouteValueDictionary {
+                            {"area", "Orchard.Car"},
+                            {"controller", "Car"},
+                            {"action", "List"}
+                        },
+                        new RouteValueDictionary (),
+                        new RouteValueDictionary {
+                            {"area", "Orchard.Car"}                            
+                        },
+                        new MvcRouteHandler())
                 }
             };
         }

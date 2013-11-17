@@ -28,5 +28,14 @@ namespace Orchard.Car.Services
             }
             return true;
         }
+
+
+
+        public virtual object GetList()
+        {
+
+            var list = _carInfoRepository.Fetch(s => true);
+            return list;
+        }
     }
 }

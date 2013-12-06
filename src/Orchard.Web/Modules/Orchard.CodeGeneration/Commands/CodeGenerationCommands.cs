@@ -349,7 +349,7 @@ namespace Orchard.CodeGeneration.Commands {
 
         private void AddToSolution(TextWriter output, string projectName, string projectGuid, string containingFolder, string solutionFolderGuid) {
             if (!string.IsNullOrEmpty(projectGuid)) {
-                var solutionPath = Directory.GetParent(_orchardWebProj).Parent.FullName + "\\Orchard.sln";
+                var solutionPath = Directory.GetParent(_orchardWebProj).Parent.FullName + "\\OrchardNoCMS.sln";
                 if (File.Exists(solutionPath)) {
                     var projectReference = string.Format("EndProject\r\nProject(\"{{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}}\") = \"{0}\", \"Orchard.Web\\{2}\\{0}\\{0}.csproj\", \"{{{1}}}\"\r\n", projectName, projectGuid, containingFolder);
                     var projectConfiguationPlatforms = string.Format("GlobalSection(ProjectConfigurationPlatforms) = postSolution\r\n\t\t{{{0}}}.Debug|Any CPU.ActiveCfg = Debug|Any CPU\r\n\t\t{{{0}}}.Debug|Any CPU.Build.0 = Debug|Any CPU\r\n\t\t{{{0}}}.Release|Any CPU.ActiveCfg = Release|Any CPU\r\n\t\t{{{0}}}.Release|Any CPU.Build.0 = Release|Any CPU\r\n", projectGuid);

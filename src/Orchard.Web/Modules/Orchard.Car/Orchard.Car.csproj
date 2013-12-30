@@ -90,8 +90,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AOP\SimpleInterceptor.cs" />
-    <Compile Include="Autofac\SimpleInterceptorModule.cs" />
     <Compile Include="Controllers\CarController.cs" />
     <Compile Include="Migrations.cs" />
     <Compile Include="Models\Car.cs" />

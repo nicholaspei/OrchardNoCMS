@@ -7,6 +7,12 @@
     <References />
   </Dependency>
   <Dependency>
+    <ModuleName>Orchard.CarExtension</ModuleName>
+    <VirtualPath>~/Modules/Orchard.CarExtension/bin/Orchard.CarExtension.dll</VirtualPath>
+    <LoaderName>PrecompiledExtensionLoader</LoaderName>
+    <References />
+  </Dependency>
+  <Dependency>
     <ModuleName>Orchard.CodeGeneration</ModuleName>
     <VirtualPath>~/Modules/Orchard.CodeGeneration/bin/Orchard.CodeGeneration.dll</VirtualPath>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>

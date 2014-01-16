@@ -4,30 +4,30 @@
     <ExtensionId>Orchard.Car</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/Orchard.Car/bin/Orchard.Car.dll</VirtualPath>
-    <Hash>48f2f85d55bbed8c</Hash>
+    <Hash>48f318ad2a829cae</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>Orchard.CarExtension</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/Orchard.CarExtension/bin/Orchard.CarExtension.dll</VirtualPath>
-    <Hash>4911e07c41ca697f</Hash>
+    <Hash>925959cda10d2b08</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>Orchard.CodeGeneration</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/Orchard.CodeGeneration/bin/Orchard.CodeGeneration.dll</VirtualPath>
-    <Hash>4917808163020a8c</Hash>
+    <Hash>926cd1d2b6b404fa</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>Orchard.Modules</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/Orchard.Modules/bin/Orchard.Modules.dll</VirtualPath>
-    <Hash>4901106b6f0f78cc</Hash>
+    <Hash>925661bc442045b1</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>Orchard.Themes</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/Orchard.Themes/bin/Orchard.Themes.dll</VirtualPath>
-    <Hash>48fd7867d6b77081</Hash>
+    <Hash>9252c9b8ac3e68c4</Hash>
   </Dependency>
 </Dependencies>

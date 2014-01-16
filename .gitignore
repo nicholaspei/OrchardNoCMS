@@ -49,10 +49,12 @@ x64/
 build/
 [Bb]in/
 [Oo]bj/
-
+Dependencies/
+Logs/
 # MSTest test Results
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
+*.dat
 *.sdf
 *_i.c
 *_p.c

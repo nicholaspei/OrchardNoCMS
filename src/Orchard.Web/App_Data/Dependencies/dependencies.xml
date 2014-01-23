@@ -1,6 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Dependencies>
   <Dependency>
+    <ModuleName>AmberMe.Script</ModuleName>
+    <VirtualPath>~/Modules/AmberMe.Script/bin/AmberMe.Script.dll</VirtualPath>
+    <LoaderName>PrecompiledExtensionLoader</LoaderName>
+    <References />
+  </Dependency>
+  <Dependency>
     <ModuleName>Orchard.Car</ModuleName>
     <VirtualPath>~/Modules/Orchard.Car/bin/Orchard.Car.dll</VirtualPath>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>

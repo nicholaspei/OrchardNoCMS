@@ -1,7 +1,7 @@
 ﻿; (function ($, window, document, undefined) {
 
-    var pluginName = 'amberme',
-        version = '0.5.0';
+    var pluginName = 'koLoader',
+        version = '1.0.0';
 
 
     function Plugin(element, options) {
@@ -97,14 +97,6 @@
             var paramTag = function (url) {
                 return url.indexOf('?') > 0 ? '&' : '?'
             };
-            
-            var random = Math.random() * 100;
-            if (url!=null&&url.indexOf('?') > 0) {
-                url = url + "&ihateid=" + random;
-            } else {
-                url = url + "?ihateid=" + random;
-            }
-           
 
             var all = that.$element.data('all');
             if (all == null || all == undefined || all == '') {
@@ -121,14 +113,10 @@
                     if (data.Result == 1) {
                         remoteBinding(data, pageSize);
                     }
-                    if (data.Result == 2) {
-                        if (data.Message.length > 0) {
-                            alert(data.Message);
-                            //location.href = location.href;
-                        }
-                    }
                 });
             }
+
+
         };
 
         var localBinding = function (data, pageIndex, pageSize) {
@@ -163,14 +151,13 @@
 
         var remoteBinding = function (data, pageSize) {
             //pages
-           
             var count = parseInt((data.RecordCount || that.$element.data('count')) || 0);
             var pageIndex = that.viewModel.Page.Number();
             if (pageIndex > 0 && ((pageIndex * pageSize) >= count)) {
                 that.viewModel.Page.Number(pageIndex - 1);
                 return;
             }
-           
+
             that.viewModel.Total = count;
             that.viewModel.Page.List.removeAll();
             if (count > 0 && pageSize > 0) {
@@ -192,7 +179,6 @@
                 }
 
             }
-         
             //data                   
             if (that.viewModel.Data) {
                 ko.mapping.fromJS(data.Data, {}, that.viewModel.Data);
@@ -201,7 +187,6 @@
                 that.viewModel.Data = ko.mapping.fromJS(data.Data);
                 ko.applyBindings(that.viewModel, that.element);
             }
-          
             setSelected();
             that.options.onLoaded(data);
         };
@@ -243,6 +228,10 @@
         };
         var setSelected = function () {
             that.viewModel.Selected.Items.removeAll();
+
+
+
+
             if (that.$element.find(':checkbox[id="selAll"]').length > 0) {
                 var el = that.$element.find(':checkbox[id!="selAll"][checked]');
                 if (el && el.length > 0) {
@@ -256,40 +245,31 @@
                 }
 
                 that.viewModel.Selected.Count(that.$element.find(':checkbox[id!="selAll"][checked]').length);
-                //start 不可用状态的框不能算 
-                //that.$element.find(':checkbox[id="selAll"]').attr("checked", that.$element.find(':checkbox:not(:checked)[id!="selAll"]').length == 0 && that.$element.find(':checkbox[id!="selAll"]').length > 0);
-                var no_selAll_count = that.$element.find(':checkbox[id!="selAll"]').length;
-                that.$element.find(':checkbox[id="selAll"]').attr("checked", that.$element.find(':checkbox:not(:checked)[id!="selAll"]:not(:disabled)').length == 0 && no_selAll_count > 0 && (no_selAll_count != that.$element.find(':checkbox[id!="selAll"]:disabled').length));
-                //end 不可用状态的框不能算 
+                that.$element.find(':checkbox[id="selAll"]').attr("checked", that.$element.find(':checkbox:not(:checked)[id!="selAll"]').length == 0 && that.$element.find(':checkbox[id!="selAll"]').length > 0);
             }
             else {
                 that.viewModel.Selected.Item(that.viewModel.Data);
 
             }
-           
-            var orgIds = $("#organizationIDs").val();
-            var currentOrgId = $("#currentOrganizationID").val();
-            //alert(currentOrgID);
-            var el = that.$element.find(':checkbox[id!="selAll"]').each(function (i, o) {
-                var row = that.viewModel.Data()[i];
-                
-                if (row.OrganizationID
-                    && currentOrgId != '' && orgIds.indexOf(row.OrganizationID()) < 0) {
-                    o.remove();
-                    return;
-                }
-                if (currentOrgId && orgIds.indexOf(currentOrgId) < 0) {
-                    o.remove();
-                    return;
-                }
-            });
+
+            //var orgIds = $("#organizationIDs").val();
+            //var currentOrgID = $("#currentOrganizationID").val();
+            ////alert(currentOrgID);
+            //var el = that.$element.find(':checkbox[id!="selAll"]').each(function (i, o) {
+            //    var row = that.viewModel.Data()[i];
+
+            //    if (row.OrganizationID
+            //        && currentOrgID != '' && orgIds.indexOf(row.OrganizationID()) < 0) {
+            //        o.remove();
+            //    }
+            //});
 
             that.$element.find(':checkbox[id="selAll"]').each(function (i, o) {
                 $(o).css('display', that.$element.find(':checkbox[id!="selAll"]').length == 0 ? 'none' : 'block');
             });
-            that.$element.find("#btnAdd").each(function (i, o) {
-                $(o).attr("disabled", $(o).attr("disabled") || (currentOrgId != '' && orgIds.indexOf(currentOrgId) < 0));
-            });
+            //that.$element.find("#btnAdd").each(function (i, o) {
+            //    $(o).attr("disabled", $(o).attr("disabled") || (currentOrgID != '' && orgIds.indexOf(currentOrgID) < 0));
+            //});
 
 
         };
@@ -313,30 +293,24 @@
             that.$element.find("#btnDown").attr("disabled", disableMoveDown());
             that.$element.find("#btnEnable").attr("disabled", newValue < 1);
             that.$element.find("#btnDisable").attr("disabled", newValue < 1);
-            that.$element.find("#btnPublish").attr("disabled", newValue < 1);
+            that.$element.find("#btnPublish").attr("disabled", newValue != 1);
+            that.$element.find("#btnPublishData").attr("disabled", newValue < 1);
+            that.$element.find("#btnCancelPublish").attr("disabled", newValue < 1);
             that.$element.find("#btnRelateMultCar").attr("disabled", newValue < 1);
-            that.$element.find("#btnLockWayPoint").attr("disabled", newValue != 1);
+            that.$element.find("#btnDetail").attr("disabled", newValue != 1);
             that.$element.find("#btnRelateCar").attr("disabled", newValue != 1);
             that.$element.find("#btnPublishTrue").attr("disabled", newValue < 1);
             that.$element.find("#btnPublishFalse").attr("disabled", newValue < 1);
-            that.$element.find("#btnReleted").attr("disabled", newValue < 1);
-            that.$element.find("#btnUnReleted").attr("disabled", newValue < 1);
-            that.$element.find("#btnDetail").attr("disabled", newValue != 1);
-            that.$element.find("#btnSearchTrack").attr("disabled", newValue != 1);
-
-            that.$element.find("#btnOpenFunction").attr("disabled", newValue < 1);
-            that.$element.find("#btnOpenCarFunction").attr("disabled", newValue < 1);
-            that.$element.find("#btnOpenFees").attr("disabled", newValue < 1);
-            that.$element.find("#btnPublishToOrganization").attr("disabled", newValue < 1);
-            that.$element.find("#btnDelete_only").attr("disabled", newValue != 1);
         });
-
+        //that.viewModel
         //load
         that.viewModel.Page.Number(0);
         that.viewModel.Selected.Count(0);
 
+        //that.$element.find(':checkbox[data-bind]').each
+
         //bindings
-        that.$element.on('click', 'button[data-template-url],a[data-template-url]', function (e) {          
+        that.$element.on('click', 'button[data-template-url],a[data-template-url]', function (e) {
             if ($(this).data("multimodal")) {
                 var $this = $(this),
                     target = $this.data('target'),
@@ -354,7 +328,6 @@
 
             var self = $(_currbtn);
             var tmpurl = self.data('template-url');
-            tmpurl = that.distinctUrl(tmpurl);
             var modal = $("#" + that.options.modal);
             if (self.attr("id") == "btnAdd") {
                 that.$element.find(':checkbox').attr('checked', false);
@@ -372,7 +345,7 @@
                     if (nobind == null || nobind == undefined || nobind == '') {
                         ko.applyBindings(that.viewModel.Selected.Item, modal.find(".modal-body")[0]);
                     }
-                    
+
                     that.options.onShowModal.apply(_currbtn);
                 });
             }
@@ -387,11 +360,7 @@
         });
 
         that.$element.find("#selAll").bind("click", function () {
-            //start 不可用状态的框不能选择 
-            //that.$element.find(":checkbox").attr('checked', this.checked);
-            that.$element.find(":checkbox:not(:disabled)").attr('checked', this.checked);
-            //end 不可用状态的框不能选择
-
+            that.$element.find(':checkbox').attr('checked', this.checked);
             that.viewModel.Selected.Count(that.$element.find(':checkbox[id!="selAll"][checked]').length);
             setSelected();
         });
@@ -448,20 +417,13 @@
             var target = $(e.currentTarget);
             _currbtn = e.currentTarget;
             var url = target.data('url');
-            
-            var c = $(this).attr("confirm");
             var _confirm = target.data('confirm') || '确认操作吗?';
-            var is_c = true;
-            if (c == "1" || c == undefined) {//根据条件判断是否要进行判断操作
-                is_c = confirm(_confirm);
-            }
-            if (is_c) {
+            if (confirm(_confirm)) {
                 var ids = new Array();
                 that.$element.find(':checkbox[id!="selAll"][checked]').each(function () {
                     ids.push($(this).attr("value"));
                 });
-               
-                url= that.distinctUrl(url);
+
                 $.ajax({
                     url: url,
                     type: 'post',
@@ -471,19 +433,13 @@
                     if (data.Result == 1) {//succeed
                         var key = ($(_currbtn).attr("id") || '').length == 0 ? 'nosuchkey' : $(_currbtn).attr("id");
                         if (that.options.callback[key] && typeof that.options.callback[key] == 'function') {
-                            that.options.callback[key](data);
+                            that.options.callback[key].apply(_currbtn, data);
                         }
                         that.reload();
                     }
 
                     if (data.Message && data.Message.length > 0) {
-                        if (data.Message.indexOf("**script_me**") > -1) {
-                            //扩展方法，执行js 
-                            eval(data.Message.replace("**script_me**", ""));
-                        }
-                        else {
-                            alert(data.Message);
-                        }
+                        alert(data.Message);
                     }
 
                 })
@@ -509,12 +465,11 @@
         });
 
         var succeed = function (data, hold) {
-          
             if (data.Result == 1) {//succeed
 
                 var key = ($(_currbtn).attr("id") || '').length == 0 ? 'nosuchkey' : $(_currbtn).attr("id");
                 if (that.options.callback[key] && typeof that.options.callback[key] == 'function') {
-                    that.options.callback[key](data);
+                    that.options.callback[key](_currbtn, data);
                 }
 
                 if (data.Reload) {
@@ -551,14 +506,12 @@
         };
 
         $('#' + modal + ' a.btn-primary').live('click', function (e) {
-            
             var form = $('#' + modal + ' form:first');
             var hold = $(e.currentTarget).hasClass('hold');
             var validateresult = form.bootstrapValidate();
             if (!validateresult)
                 return false;
             var url = form.attr('action');
-            url = that.distinctUrl(url);
             //var msg = '';
             //$('#' + modal + ' input[reg],select[reg]').each(function () {
             //    var reg = new RegExp($(this).attr('reg'), "ig");
@@ -576,16 +529,15 @@
                 var re = that.options.valid[key].apply();
                 if (!re) return false;
             }
-          
+
             if ($(form).attr("enctype") == "multipart/form-data") {
-                $(form).ajaxSubmit({                 
+                $(form).ajaxSubmit({
                     success: function (data) {
-                        
                         var json;
                         json = $.parseJSON(data);
                         if (json == null)
                             json = data;
-                        succeed(json, hold);
+                        succeed(data, hold);
                     },
                     error: function () {
                         alert('操作失败');
@@ -596,10 +548,9 @@
                 $.ajax({
                     url: url,
                     type: form.attr('method'),
-                    cache:false,
                     data: form.serializeArray()
                 })
-                .done(function (data) {                   
+                .done(function (data) {
                     succeed(data, hold);
                 })
                 .fail(function (response, status) {
@@ -612,10 +563,8 @@
 
     Plugin.prototype = {
         reload: function () {
-            var that = this;           
-            
+            var that = this;
             var apiUrl = that.$element.data('url');
-           
             this.load(apiUrl, that.viewModel.Page.Number());
             return that;
         },
@@ -623,15 +572,6 @@
             this.viewModel.Url(url);
             this.viewModel.Page.Number(0);
             return this;
-        },
-        distinctUrl:function(url) {
-            var random = Math.random() * 100;
-            if (url!=null&&url.indexOf('?') > 0) {
-                url = url + "&ihateie=" + random;
-            } else {
-                url = url + "?ihateie=" + random;
-            }
-            return url;
         }
     };
 
@@ -639,7 +579,7 @@
         return this.each(function () {
             if (!$.data(this, pluginName)) {
                 $.data(this, pluginName,
-                    new Plugin(this, options));
+                   new Plugin(this, options));
             }
         });
     };
@@ -727,7 +667,7 @@ Ajax.Post = function (formid, url, data, refreshFunc, comfirmFunc) {
                     default:
                         break;
                 }
-                if (xhr.responseText) {//此步有纯洁的韩总添加，由于下面那个破if里，获取不到值，，，别TMD改了
+                if (xhr.responseText) {//由于下面那个破if里，获取不到值
                     switch (xhr.responseText) {
                         case "4": //repeat  
                             _doRefresh = false;
@@ -766,4 +706,3 @@ Ajax.Post = function (formid, url, data, refreshFunc, comfirmFunc) {
         return false;
     }
 }
-

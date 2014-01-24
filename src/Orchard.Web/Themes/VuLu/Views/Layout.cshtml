@@ -6,9 +6,13 @@
     Script.Require("bootstrap");
     Script.Require("knockoutjs");
     Script.Require("knockoutjsmap");
-    
-
-
+    Script.Require("bootstrapvalidate");
+    Script.Require("dateformat");
+    Script.Require("amberme");
+    Style.Require("bootstrap_style");
+    Style.Require("bootstrap_responsive");
+    Style.Require("bootstrap_datepicker");
+    Style.Require("bootstrap_validate");
     /* Some useful shortcuts or settings
     ***************************************************************/
 
@@ -75,26 +79,11 @@
 <div id="layout-footer" class="group">
     <footer id="footer">
         <div id="footer-quad" class="group">
-            @if (Model.FooterQuadFirst != null) {
-            <div id="footer-quad-first">
-                @Zone(Model.FooterQuadFirst)
-            </div>
-            }
-            @if (Model.FooterQuadSecond != null) {
-            <div id="footer-quad-second">
-                @Zone(Model.FooterQuadSecond)
-            </div>
-            }
-            @if (Model.FooterQuadThird != null) {
-            <div id="footer-quad-third">
-                @Zone(Model.FooterQuadThird)
-            </div>
-            }
-            @if (Model.FooterQuadFourth != null) {
-            <div id="footer-quad-fourth">
-                @Zone(Model.FooterQuadFourth)
-            </div>
-            }
+             <!-- Purchase a site license to remove this link from the footer: http://www.RainbowSharp.com/bootstrap-themes -->
+                        <p class="pull-right">A <a href="http://www.RainbowSharp.com/bootstrap-themes" target="_blank">RainbowSharp Theme</a> by <a href="http://www.RainbowSharp.com" target="_blank">RainbowSharp</a></p>
+
+                        <p>&copy; 2013 <a href="http://www.RainbowSharp.com" target="_blank">RainbowSharp</a></p>
+              
         </div>
         @if(Model.Footer != null) {
         <div id="footer-sig" class="group">

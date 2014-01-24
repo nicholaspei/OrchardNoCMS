@@ -28,37 +28,19 @@
     <ModuleName>Orchard.CodeGeneration</ModuleName>
     <VirtualPath>~/Modules/Orchard.CodeGeneration/bin/Orchard.CodeGeneration.dll</VirtualPath>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
-    <References>
-      <Reference>
-        <Name>NHibernate.Linq</Name>
-        <LoaderName>PrecompiledExtensionLoader</LoaderName>
-        <VirtualPath>~/Modules/Orchard.CodeGeneration/bin/NHibernate.Linq.dll</VirtualPath>
-      </Reference>
-    </References>
+    <References />
   </Dependency>
   <Dependency>
     <ModuleName>Orchard.Modules</ModuleName>
     <VirtualPath>~/Modules/Orchard.Modules/bin/Orchard.Modules.dll</VirtualPath>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
-    <References>
-      <Reference>
-        <Name>NHibernate.Linq</Name>
-        <LoaderName>PrecompiledExtensionLoader</LoaderName>
-        <VirtualPath>~/Modules/Orchard.CodeGeneration/bin/NHibernate.Linq.dll</VirtualPath>
-      </Reference>
-    </References>
+    <References />
   </Dependency>
   <Dependency>
     <ModuleName>Orchard.Themes</ModuleName>
     <VirtualPath>~/Modules/Orchard.Themes/bin/Orchard.Themes.dll</VirtualPath>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
-    <References>
-      <Reference>
-        <Name>NHibernate.Linq</Name>
-        <LoaderName>PrecompiledExtensionLoader</LoaderName>
-        <VirtualPath>~/Modules/Orchard.CodeGeneration/bin/NHibernate.Linq.dll</VirtualPath>
-      </Reference>
-    </References>
+    <References />
   </Dependency>
   <Dependency>
     <ModuleName>SafeMode</ModuleName>

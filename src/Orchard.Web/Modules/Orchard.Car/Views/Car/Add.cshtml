@@ -1,36 +1,40 @@
-﻿<html>
-    <head>
-        <title>Car Add</title>
-        <style type="text/css">
-            form {
-             width:600px;
-             height:400px;
-             margin:100px 200px;
-            }
-            div {
-                width:400px;
-                height:50px;
-            }
-        </style>
-    </head>
-<body>
-<form action="/OrchardLocal/car/add" method="post">
-     <div>
-        名称：<input name="Name" type="text" value="" /> 
-     </div>
-    <div>
-        描述：<input name="Description" type="text" value="" /> 
-     </div>
-     <div>
-        价格：<input name="Price" type="text" value="" /> 
-     </div>
-     <div>
-        品牌：<input name="BrandId" type="text" value="" /> 
-     </div>
-     <div>
-        座位数目：<input name="SeatNum" type="text" value="" /> 
-     </div>
-    <input type="submit" value="提交" />
+﻿
+@model Orchard.Car.Models.CarInfo
+<form action='/Car/Add' method="post" class="form-horizontal">
+
+            
+    <div class="control-group">
+        <label class="control-label" for="CarName">车辆名称：</label>
+        <div class="controls">
+            <input id="CarName" name="CarName" type="text" required="required" reg="\S+" msg="车辆名称" maxlength="200" />
+        </div>
+    </div>            
+    <div class="control-group">
+        <label class="control-label" for="CarDescription">车辆描述：</label>
+        <div class="controls">
+            <input id="CarDescription" name="CarDescription" type="text" required="required" reg="\S+" msg="车辆描述" maxlength="200" />
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="CarDescription">价格：</label>
+        <div class="controls">
+            <input id="Price" name="Price" type="text" required="required" reg="\S+" msg="价格" maxlength="200" />
+        </div>
+    </div>
+        <div class="control-group">
+        <label class="control-label" for="CreateTime">所属品牌：</label>
+        <div class="controls">
+            <select name="BrandId" id="BrandId" reg="[^0]+" msg="请选择所属品牌">
+                <option value="0">Please Select...</option>     
+                <option value="1">奔驰</option>            
+            </select>
+        </div>
+    </div>
+        <div class="control-group">
+        <label class="control-label" for="SeatNumDescription">座位数：</label>
+        <div class="controls">
+            <input id="SeatNum" name="SeatNum" type="text" required="required" reg="\S+" msg="座位数" maxlength="200" />
+        </div>
+    </div>  
 </form>
-    </body>
- </html>
+

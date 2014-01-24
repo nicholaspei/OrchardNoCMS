@@ -89,9 +89,7 @@
     <Content Include="TheThemeMachine\ThemeZonePreview.png" />
     <Content Include="VuLu\Content\rss.png" />
     <Content Include="VuLu\Styles\Site.css" />
-    <Content Include="VuLu\Theme.PNG" />
     <Content Include="VuLu\Theme.txt" />
-    <Content Include="VuLu\ThemeZonePreview.png" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -169,20 +167,11 @@
     <Content Include="VuLu\Content\Web.config" />
     <Content Include="VuLu\placement.info" />
     <Content Include="VuLu\Styles\Web.config" />
-    <Content Include="VuLu\Views\BadgeOfHonor.cshtml" />
-    <Content Include="VuLu\Views\Branding.cshtml" />
-    <Content Include="VuLu\Views\Content-Blog.cshtml" />
-    <Content Include="VuLu\Views\Document.cshtml" />
     <Content Include="VuLu\Views\Layout.cshtml" />
-    <Content Include="VuLu\Views\Orchard.Blogs\BlogPost\ListByArchive.cshtml" />
-    <Content Include="VuLu\Views\Pager.cshtml" />
-    <Content Include="VuLu\Views\Parts.Blogs.BlogArchives.cshtml" />
-    <Content Include="VuLu\Views\Parts.Common.Body.Summary.cshtml" />
-    <Content Include="VuLu\Views\Parts.Common.Metadata.Summary.cshtml" />
-    <Content Include="VuLu\Views\Parts.Feedburner.cshtml" />
-    <Content Include="VuLu\Views\Parts.Search.SearchForm.cshtml" />
-    <Content Include="VuLu\Views\Parts.TwitterWidget.cshtml" />
     <Content Include="VuLu\Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="VuLu\Scripts\Web.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

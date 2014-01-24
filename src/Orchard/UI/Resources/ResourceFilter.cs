@@ -24,10 +24,10 @@ namespace Orchard.UI.Resources {
             var head = ctx.Layout.Head;
             var tail = ctx.Layout.Tail;
          //   head.Add(_shapeFactory.Metas());
-            //head.Add(_shapeFactory.HeadLinks());
-            //head.Add(_shapeFactory.StylesheetLinks());
-            //head.Add(_shapeFactory.HeadScripts());
-            //tail.Add(_shapeFactory.FootScripts());
+            head.Add(_shapeFactory.HeadLinks());
+            head.Add(_shapeFactory.StylesheetLinks());
+            head.Add(_shapeFactory.HeadScripts());
+            tail.Add(_shapeFactory.FootScripts());
         }
 
         public void OnResultExecuted(ResultExecutedContext filterContext) {

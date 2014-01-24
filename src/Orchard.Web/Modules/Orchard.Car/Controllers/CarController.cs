@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Orchard.Car.Models;
 using Orchard.Car.Services;
+using Orchard.Themes;
 
 namespace Orchard.Car.Controllers
 {
@@ -16,6 +17,7 @@ namespace Orchard.Car.Controllers
             _carInfoService = carInfoService;
         }
 
+        [Themed]
         public ActionResult Index()
         { 
          return View();

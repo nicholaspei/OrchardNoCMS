@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-16"?>
 <Tenants>
-  <Default>24|Orchard.Framework;Settings;Orchard.Modules;TheThemeMachine;Metro;VuLu;Orchard.Themes;Shapes;Orchard.Car;Orchard.CodeGeneration;Orchard.Car;Orchard.CarExtension;|</Default>
+  <Default>25|Orchard.Framework;Settings;Orchard.Modules;TheThemeMachine;Metro;VuLu;Orchard.Themes;Shapes;Orchard.Car;Orchard.CodeGeneration;Orchard.Car;Orchard.CarExtension;AmberMe.Script;|</Default>
 </Tenants>

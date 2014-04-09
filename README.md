@@ -20,3 +20,6 @@ DataConnectionString: null 修改为：DataConnectionString:  Data Source=127.0.
 Persist Security Info=True;User ID=xxx;Password=xxx;
 ```
 
+## About  Build
+当你克隆或者下载zip包到本地后，请重新编译一下解决方案，否则无法运行。
+

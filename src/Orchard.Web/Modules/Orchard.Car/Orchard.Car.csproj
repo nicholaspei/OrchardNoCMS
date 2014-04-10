@@ -93,7 +93,6 @@
     <Compile Include="Controllers\CarController.cs" />
     <Compile Include="Migrations.cs" />
     <Compile Include="Models\Car.cs" />
-    <None Include="Models\CarExt.cs~" />
     <Compile Include="Routes.cs" />
     <Compile Include="Services\CarInfoService.cs" />
     <Compile Include="Services\ICarInfoService.cs" />

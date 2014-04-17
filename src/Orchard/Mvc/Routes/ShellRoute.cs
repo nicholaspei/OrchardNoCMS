@@ -6,6 +6,7 @@ using System.Web.Routing;
 using System.Web.SessionState;
 using Orchard.Environment;
 using Orchard.Environment.Configuration;
+using Orchard.Logging;
 using Orchard.Mvc.Extensions;
 
 namespace Orchard.Mvc.Routes {
@@ -119,6 +120,8 @@ namespace Orchard.Mvc.Routes {
                 get { return false; }
             }
 
+            public ILogger Logger { get; set; }
+
             public void ProcessRequest(HttpContext context) {
                 using (_workContextAccessor.CreateWorkContextScope(new HttpContextWrapper(context))) {
                     _httpHandler.ProcessRequest(context);
@@ -147,8 +150,9 @@ namespace Orchard.Mvc.Routes {
                 try {
                     return _httpAsyncHandler.BeginProcessRequest(context, cb, extraData);
                 }
-                catch {
+                catch(Exception ex) {
                     _scope.Dispose();
+                    Logger.Error(ex,ex.Message);
                     HttpContext.Current.Response.Redirect("/StartPage"); 
                    // throw;
                     return null;

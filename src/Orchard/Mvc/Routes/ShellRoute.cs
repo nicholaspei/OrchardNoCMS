@@ -120,8 +120,7 @@ namespace Orchard.Mvc.Routes {
                 get { return false; }
             }
 
-            public ILogger Logger { get; set; }
-
+          
             public void ProcessRequest(HttpContext context) {
                 using (_workContextAccessor.CreateWorkContextScope(new HttpContextWrapper(context))) {
                     _httpHandler.ProcessRequest(context);
@@ -152,10 +151,11 @@ namespace Orchard.Mvc.Routes {
                 }
                 catch(Exception ex) {
                     _scope.Dispose();
-                    Logger.Error(ex,ex.Message);
+                  
+                  
                     HttpContext.Current.Response.Redirect("/StartPage"); 
-                   // throw;
-                    return null;
+                    throw;
+                   // return null;
                 }
             }
 

@@ -25,38 +25,30 @@ using Orchard.UI.Notify;
 
 namespace Orchard.Modules.Controllers {
     public class AdminController : Controller {
-        private readonly IExtensionDisplayEventHandler _extensionDisplayEventHandler;
+       
         private readonly IModuleService _moduleService;
         private readonly IDataMigrationManager _dataMigrationManager;
         private readonly IReportsCoordinator _reportsCoordinator;
         private readonly IExtensionManager _extensionManager;
-        private readonly IFeatureManager _featureManager;
-        private readonly IRecipeHarvester _recipeHarvester;
-        private readonly IRecipeManager _recipeManager;
+        private readonly IFeatureManager _featureManager;             
         private readonly ShellDescriptor _shellDescriptor;
 
-        public AdminController(
-            IEnumerable<IExtensionDisplayEventHandler> extensionDisplayEventHandlers,
+        public AdminController(          
             IOrchardServices services,
             IModuleService moduleService,
             IDataMigrationManager dataMigrationManager,
             IReportsCoordinator reportsCoordinator,
             IExtensionManager extensionManager,
-            IFeatureManager featureManager,
-            IRecipeHarvester recipeHarvester,
-            IRecipeManager recipeManager,
+            IFeatureManager featureManager,                    
             ShellDescriptor shellDescriptor,
             IShapeFactory shapeFactory)
         {
-            Services = services;
-            _extensionDisplayEventHandler = extensionDisplayEventHandlers.FirstOrDefault();
+            Services = services;   
             _moduleService = moduleService;
             _dataMigrationManager = dataMigrationManager;
             _reportsCoordinator = reportsCoordinator;
             _extensionManager = extensionManager;
-            _featureManager = featureManager;
-            _recipeHarvester = recipeHarvester;
-            _recipeManager = recipeManager;
+            _featureManager = featureManager;                   
             _shellDescriptor = shellDescriptor;
             Shape = shapeFactory;
 
@@ -89,13 +81,7 @@ namespace Orchard.Modules.Controllers {
 
             modules = modules.ToList();
             foreach (ModuleEntry moduleEntry in modules) {
-                moduleEntry.IsRecentlyInstalled = _moduleService.IsRecentlyInstalled(moduleEntry.Descriptor);
-
-                if (_extensionDisplayEventHandler != null) {
-                    foreach (string notification in _extensionDisplayEventHandler.Displaying(moduleEntry.Descriptor, ControllerContext.RequestContext)) {
-                        moduleEntry.Notifications.Add(notification);
-                    }
-                }
+                moduleEntry.IsRecentlyInstalled = _moduleService.IsRecentlyInstalled(moduleEntry.Descriptor);           
             }
 
             return View(new ModulesIndexViewModel {
@@ -117,13 +103,7 @@ namespace Orchard.Modules.Controllers {
 
             var viewModel = new RecipesViewModel();
 
-            if (_recipeHarvester != null) {
-                viewModel.Modules = modules.Select(x => new ModuleRecipesViewModel {
-                    Module = x,
-                    Recipes = _recipeHarvester.HarvestRecipes(x.Descriptor.Id).ToList()
-                })
-                .Where(x => x.Recipes.Any());
-            }
+           
 
             return View(viewModel);
 
@@ -142,21 +122,17 @@ namespace Orchard.Modules.Controllers {
                 return HttpNotFound();
             }
 
-            Recipe recipe = _recipeHarvester.HarvestRecipes(module.Descriptor.Id).FirstOrDefault(x => x.Name == name);
+           
 
-            if (recipe == null) {
-                return HttpNotFound();
-            }
+            //try {
+            //    _recipeManager.Execute(recipe);
+            //}
+            //catch(Exception e) {
+            //    Logger.Error(e, "Error while executing recipe {0} in {1}", moduleId, name);
+            //    Services.Notifier.Error(T("Recipes contains {0} unsupported module installation steps.", recipe.Name));
+            //}
 
-            try {
-                _recipeManager.Execute(recipe);
-            }
-            catch(Exception e) {
-                Logger.Error(e, "Error while executing recipe {0} in {1}", moduleId, name);
-                Services.Notifier.Error(T("Recipes contains {0} unsupported module installation steps.", recipe.Name));
-            }
-
-            Services.Notifier.Information(T("The recipe {0} was executed successfully.", recipe.Name));
+            //Services.Notifier.Information(T("The recipe {0} was executed successfully.", recipe.Name));
             
             return RedirectToAction("Recipes");
 

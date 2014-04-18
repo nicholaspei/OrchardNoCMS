@@ -279,7 +279,7 @@ namespace Orchard.CodeGeneration.Commands {
         }
 
         private static bool IsSourceEnlistment() {
-            return File.Exists(Directory.GetParent(_orchardWebProj).Parent.FullName + "\\Orchard.sln");
+            return File.Exists(Directory.GetParent(_orchardWebProj).Parent.FullName + "\\OrchardNoCMS.sln");
         }
 
         private void CreateThemeFromTemplates(TextWriter output, string themeName, string baseTheme, string projectGuid, bool includeInSolution) {
@@ -406,7 +406,7 @@ namespace Orchard.CodeGeneration.Commands {
 
         private void TouchSolution(TextWriter output) {
             string rootWebProjectPath = HostingEnvironment.MapPath("~/Orchard.Web.csproj");
-            string solutionPath = Directory.GetParent(rootWebProjectPath).Parent.FullName + "\\Orchard.sln";
+            string solutionPath = Directory.GetParent(rootWebProjectPath).Parent.FullName + "\\OrchardNoCMS.sln";
             if (!File.Exists(solutionPath)) {
                 output.WriteLine(T("Warning: Solution file could not be found at {0}", solutionPath));
                 return;

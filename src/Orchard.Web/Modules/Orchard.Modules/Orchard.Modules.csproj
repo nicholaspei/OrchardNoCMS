@@ -67,6 +67,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Models\DoghouseComparer.cs" />
+    <Compile Include="Route.cs" />
     <Compile Include="Services\IModuleService.cs" />
     <Compile Include="Models\ModuleEntry.cs" />
     <Compile Include="Models\ModuleFeature.cs" />

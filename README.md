@@ -8,7 +8,7 @@ Orchard CMS是针对CMS开发的，对于很多开发需求来说，内容管理
 
 
 ## Documentation
-WIKI： [documentation](https://github.com/nicholaspei/OrchardNoCMS/wiki/_pages)
+WIKI： [documentation](http://nicholaspei.github.io/OrchardNoCMS/)
 
 ## About the Database
 默认是使用使用SqlCE数据库，如果你使用的Sql Server，请打开如下的路径[sql](https://github.com/nicholaspei/OrchardNoCMS/blob/master/OrchardNoCMS.sql)，

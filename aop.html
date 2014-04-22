@@ -1,0 +1,96 @@
+<html>
+ <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Orchardnocms : " />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Orchardnocms</title>
+  </head>
+ <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/nicholaspei/OrchardNoCMS">View on GitHub</a>
+
+          <h1 id="project_title">Orchardnocms</h1>
+          <h2 id="project_tagline"></h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/nicholaspei/OrchardNoCMS/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/nicholaspei/OrchardNoCMS/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+    <p><span style="font-size: 14px;"><img src="http://www.ibm.com/developerworks/rational/library/mar06/pollice/fig8.gif" alt="Figure 8: Adapter pattern" /></span></p>
+<p><span style="font-size: 14px;">AOP编程在目前来说好像是大家都比较喜欢的。ASP.NET MVC中的Filter就是使用AOP实现的配置器模式。AOP在编码中的应用主要有如下几个方面：</span></p>
+<p><span style="font-size: 14px;"><strong>日志记录，跟踪，优化和监控</strong></span></p>
+<p><span style="font-size: 14px;"><strong>事务的处理</strong></span></p>
+<p><span style="font-size: 14px;"><strong>持久化</strong></span></p>
+<p><span style="font-size: 14px;"><strong>性能的优化</strong></span></p>
+<p><span style="font-size: 14px;"><strong>资源池，如数据库连接池的管理</strong></span></p>
+<p><span style="font-size: 14px;"><strong>系统统一的认证、权限管理等</strong></span></p>
+<p><span style="font-size: 14px;"><strong>应用系统的异常捕捉及处理</strong></span></p>
+<p><span style="font-size: 14px;"><strong>针对具体行业应用的横切行为</strong></span></p>
+<p><span style="font-size: 14px;">前面几种应用我相信大家都是比较熟悉的。在ASP.NET MVC中有Filter之类的，提供认证和权限管理。很多实现AOP的组件都是拿日志作为例子说明。我这里给大家说明一个具体业务的横切例子。</span></p>
+<p><span style="font-size: 14px;">以之前的Orchard.Car模块为例，如果我们这个模块式产品中的一个模块，当应用到项目中时，可能需要一些改动，那么AOP就可以在很多时候解决我们的问题。</span></p>
+<p><span style="font-size: 14px;">假设我们现在有一个方法是获取Car的列表，那么对应的代码如下：</span></p>
+<p><span style="font-size: 14px;"><a href="http://images.cnitblog.com/blog/138896/201311/17204711-4c3a7968a94f4fee89555e64933b8d49.png"><img style="display: inline; border-width: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201311/17204712-4e69cb995cb74357ad3dc44b0c0bd519.png" alt="image" width="644" height="209" border="0" /></a></span></p>
+<p><span style="font-size: 14px;">&nbsp;</span></p>
+<p><span style="font-size: 14px;">对应的Service代码如下：</span></p>
+<p><span style="font-size: 14px;"><a href="http://images.cnitblog.com/blog/138896/201311/17204713-64b07ae108c040d6a91a93d7e8855729.png"><img style="display: inline; border-width: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201311/17204714-7bd0d5fd97c246018378f0a532996d2a.png" alt="image" width="644" height="211" border="0" /></a></span></p>
+<p><span style="font-size: 14px;">别忘了在Route.cs中添加路由代码。</span></p>
+<p><span style="font-size: 14px;">运行，查看结果:</span></p>
+<p><span style="font-size: 14px;"><a href="http://images.cnitblog.com/blog/138896/201311/17204715-c96ad503e5ec484a8b29bac4b1df473c.png"><img style="display: inline; border-width: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201311/17204717-b5c118d02be141ca8463aeb5191ec644.png" alt="image" width="644" height="169" border="0" /></a></span></p>
+<p><span style="font-size: 14px;">&nbsp;</span></p>
+<p><span style="font-size: 14px;">如果在产品发布后，项目A中使用该产品，需要为car添加一个字段，叫做缩略图，那么很现实的一个问题是，我们是不是为了项目A单独为car扩展一个字段？这时候适配器就很重要了，实现适配器的方式有很多，我们这里就说明下如何使用AOP来实现字段的扩展。</span></p>
+<p><span style="font-size: 14px;">首先需要一个Aufofac的module类，代码如下：</span></p>
+<p><span style="font-size: 14px;"><a href="http://images.cnitblog.com/blog/138896/201311/17204719-574da1bfd90b4d38a8b8a16bd640fcbc.png"><img style="display: inline; border-width: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201311/17204722-51f36353b0e944009a025d2bebaad053.png" alt="image" width="1028" height="492" border="0" /></a>&nbsp;</span></p>
+<p><span style="font-size: 14px;">我们只需要为CarInfoService类来添加一个拦截器，别的就没有必要了。这里你会看到有一个SimpleInterceptor类，它的作用就是用来对CarInfoService的方法进行拦截。</span></p>
+<p><span style="font-size: 14px;">SimpleInterceptor的代码如下：</span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><span style="font-size: 14px;"><a href="http://images.cnitblog.com/blog/138896/201311/17204724-c1b3df47ff77434482e7fdbbf09bbd0c.png"><img style="display: inline; border-width: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201311/17204726-908fa71ce51d4951983d2beb182e4b4d.png" alt="image" width="508" height="484" border="0" /></a></span></p>
+<p><span style="font-size: 14px;">如果当前的方法名称是GetList那么我们就为它添加一个字段，代表缩略图。这里我随便写一个，你可以根据自己的实际需要去做相应的改变。</span></p>
+<p><span style="font-size: 14px;">现实中，可能这个Interceptor是在一个扩展模块中，所以对应的需要一个扩展的服务来提供Thumb字段。</span></p>
+<p><span style="font-size: 14px;"><a href="http://images.cnitblog.com/blog/138896/201311/17204728-79cad9bd84084c538c9d585ad24e1ec3.png"><img style="display: inline; border-width: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201311/17204729-a76cb9360c1d4ccebece2b31272dc04b.png" alt="image" width="815" height="305" border="0" /></a></span></p>
+<p><span style="font-size: 14px;">&nbsp;</span></p>
+<p>&nbsp;</p>
+<p><span style="font-size: 14px;">结果不正确，因为我们客户端或者页面已经对运来的JSON进行了解析，所以新的JSON格式不是我们需要的，再次修改Interceptor的代码：</span></p>
+<p><span style="font-size: 14px;"><a href="http://images.cnitblog.com/blog/138896/201311/17204731-38bbb020a3bd491587feaec847a2606b.png"><img style="display: inline; border-width: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201311/17204732-9242c342f7604ec69ac979942b400536.png" alt="image" width="644" height="389" border="0" /></a></span></p>
+<p><span style="font-size: 14px;">除了GetList方法可以通过AOP实现修改封闭扩展开放，你叶可以使用这种方式来扩展新增记录的方法。这时你需要把Request.Form从Controller中传入Service方法。这种扩展方式一个很大的好处就是可以帮助多个项目平稳的升级。产品模块的代码永远都不会被项目牵制。</span></p>
+<p><span style="font-size: 14px;">具体的例子请到github上下载相应的代码来查看，这里就不做解释了。</span></p>
+<p><span style="font-size: 14px;">上面只是我自己的一个小小的使用经验，有时候当字段的类型需要更改，而你不允许直接更改当前的代码时，这种方式也是一个不错的方法。</span></p>
+<p><span style="font-size: 14px;">AOP虽然不是标准的设计模式之一，但是通过它可以让很多的模式更加简单的实现。</span></p>
+<p><span style="font-size: 14px;">最后说明一下，OrchardNoCMS中如何实现的AOP。</span></p>
+<p><span style="font-size: 14px;">它使用的Castle.DynamicProxy来实现的。结合Autofac。首先是对AutoFac的扩展类：</span></p>
+<p><span style="font-size: 14px;"><a href="http://images.cnitblog.com/blog/138896/201311/17204736-697e061331d940a0a33d5b9861a0e2b3.png"><img style="display: inline; border-width: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201311/17204742-4cf89be841a744d2b8ea0d3a8f5d1478.png" alt="image" width="1028" height="504" border="0" /></a></span></p>
+<p><span style="font-size: 14px;">注入时，需要为注入的Component调用EnableDynamicProxy方法，代码位置：</span></p>
+<p><span style="font-size: 14px;"><a href="http://images.cnitblog.com/blog/138896/201311/17204746-dc0e52aeafb04b45a602051fa7e2a4c8.png"><img style="display: inline; border-width: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201311/17204751-b1da8e8ee2fe4ae9b942ca340d364a9d.png" alt="image" width="1028" height="492" border="0" /></a></span></p>
+<p>&nbsp;</p>
+<p><span style="font-size: 14px;">可以看出来，所有实现继承了IDependency的类都可以使用AOP。</span></p>
+<p><span style="font-size: 14px;">&nbsp;</span></p>
+<p><span style="font-size: 14px;">以上就是OrchardNoCMS的AOP编程示例，可以到<a href="https://github.com/nicholaspei/OrchardNoCMS">https://github.com/nicholaspei/OrchardNoCMS</a> 下载完整代码。</span></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Orchardnocms maintained by <a href="https://github.com/nicholaspei">nicholaspei</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>

@@ -1,0 +1,112 @@
+<html>
+ <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Orchardnocms : " />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Orchardnocms</title>
+  </head>
+ <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/nicholaspei/OrchardNoCMS">View on GitHub</a>
+
+          <h1 id="project_title">Orchardnocms</h1>
+          <h2 id="project_tagline"></h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/nicholaspei/OrchardNoCMS/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/nicholaspei/OrchardNoCMS/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+    <p><span style="font-size: 14px;">之前文章中给大家说明了下我这个小小的想法，发现还是有不少人的支持和关注。你们的鼓励是对我最大的支持。</span></p>
+<p><span style="font-size: 14px;">我总结了了大家的评论，有以下几个问题：</span></p>
+<p><span style="font-size: 14px;"><span style="text-decoration: underline;"><span style="color: #ff0000;">1.希望有更多的文档说明。</span></span></span></p>
+<p><span style="font-size: 14px;"><span style="text-decoration: underline;"><span style="color: #ff0000;">2.希望介绍下Orchard的热插拔机制。</span></span></span></p>
+<p><span style="font-size: 14px;"><span style="text-decoration: underline;"><span style="color: #ff0000;">3.希望可以说明如何扩展功能什么的。</span></span></span></p>
+<p><span style="font-size: 14px;"><span style="text-decoration: underline;"><span style="color: #ff0000;">4.介绍下Orchard的核心机制。</span></span></span></p>
+<p><span style="font-size: 14px;"><span style="text-decoration: underline;"><span style="color: #ff0000;">5. 介绍下我对Orchard的整个瘦身过程怎么做的。</span></span></span></p>
+<p><span style="font-size: 14px;"><span style="text-decoration: underline;"><span style="color: #ff0000;">6.觉得这个像瑞星杀毒只剩下小狮子了（这个有意思 J）</span></span></span></p>
+<p><span style="font-size: 14px;">除了这些还有别的，我只是自己大概总结了下。</span></p>
+<p><span style="font-size: 14px;">对于以上的问题，我不会挨个去说明。只是给大家说明下我的整个计划和接下来的安排。</span></p>
+<p><span style="font-size: 14px;">首先，文档是必须的。可能在博客上未来不会有太多的文档，但是在github上你将会找到很多的说明文档。OrchardCMS的整个运作机制，确实是很庞大，很复杂的。对于大家都关注和好奇的热插拔，我不可能一下子就去介绍说明它，因为它依赖于Orchard CMS的其他好多功能和机制。比如:Shell的概念，Feature的加载机制，缓存机制，动态代理、HttpContent管理等。还有一些协调的方法类等。</span></p>
+<p><span style="font-size: 14px;">从我接触OrchardCMS开始到现在也有两年了。开始试着去读它的源码，有点不靠谱，或者说对能力的要求比较高。所以试着从模块开发为出发点，慢慢的渗透，理解才是比较适合我们大多数人的方法。</span></p>
+<p><span style="font-size: 14px;">所以还是从比较简单的模块开发来，中间会顺带的介绍一些OrchardCMS中的比较核心的内容。</span></p>
+<p><span style="font-size: 14px;">1. 创建一个模块：</span></p>
+<p><span style="font-size: 14px;">我保留了代码生成模块，不能通过手动创建模块，那样会疯掉的。所以首先需要去Tools文件夹下的Orchard/bin下把Orchard.exe拷贝到Web站点的bin目录下。</span></p>
+<p><span style="font-size: 14px;"><a href="http://images.cnitblog.com/blog/138896/201311/13173344-bbbbf9c8dd854c1d9f3ea2e6647678c3.jpg"><img style="display: inline; border-width: 0px;" title="clip_image002" src="http://images.cnitblog.com/blog/138896/201311/13173344-116483e6ce384888a095897df5e6e0c1.jpg" alt="clip_image002" width="421" height="484" border="0" /></a></span></p>
+<p><span style="font-size: 14px;">然后打开它，建议使用Powershell打开，容易粘贴复制。</span></p>
+<p><span style="font-size: 14px;">使用codegen module Orchard.Car来生成一个Orchard.Car模块。</span></p>
+<p><span style="font-size: 14px;"><a href="http://images.cnitblog.com/blog/138896/201311/13173345-6b484dfb9dfb4dce8d46a1183d1bd8df.jpg"><img style="display: inline; border-width: 0px;" title="clip_image004" src="http://images.cnitblog.com/blog/138896/201311/13173346-d8053b8c8386407983dca7dd4ea997f3.jpg" alt="clip_image004" width="519" height="299" border="0" /></a></span></p>
+<p><span style="font-size: 14px;">如果你使用过改模块，那么忽略这一节，往下看吧。</span></p>
+<p><a href="http://images.cnitblog.com/blog/138896/201311/14124407-facf19d4967144caa5b474a6442adf28.png"><img style="display: inline; border-width: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201311/14124408-a16b276bdc554923868189b6f2b9224a.png" alt="image" width="644" height="359" border="0" /></a></p>
+<p><span style="font-size: 14px;">打开解决方案，在Modules文件夹下，右键选择&lsquo;添加&rsquo;菜单，找到Orchard.Web文件夹下的Modules文件夹，选择刚才生成好的Orchard.Car。</span></p>
+<p><a href="http://images.cnitblog.com/blog/138896/201311/14124409-3eee7e29f78448879c05236f44776d01.png"><img style="display: inline; border-width: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201311/14124409-2c8400a85deb40f8964fc3c27121c06c.png" alt="image" width="644" height="373" border="0" /></a></p>
+<p><span style="font-size: 14px;">添加完成后，我们就创建好了Orchard.Car模块。</span></p>
+<p><span style="font-size: 14px;">2. 修改module.txt文件。</span></p>
+<p><span style="font-size: 14px;">对于一个模块，这里需要理解什么是模块边界，就是这个模块能够放到容器里的所有触头。</span></p>
+<p><span style="font-size: 14px;">OrchardNoCMS中一个模块的触头有以下几个：</span></p>
+<p><a href="http://images.cnitblog.com/blog/138896/201311/14124410-71f99b8d34fb4c30b80fc40b3c17a8e7.png"><img style="display: inline; border-width: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201311/14124411-8982da14b50d47fa9419965b1f7b5119.png" alt="image" width="644" height="426" border="0" /></a></p>
+<p><span style="font-size: 14px;">也就是该模块必须有的部分。所以我们需要修改Module.txt文件，来确定模块以来的OrchardNoCMS版本号，以及模块的版本号。修改后的文档如下：</span></p>
+<p><a href="http://images.cnitblog.com/blog/138896/201311/14124412-64346c1953524f1f9f9bbf0ad0d4d363.png"><img style="display: inline; border-width: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201311/14124413-a9a050749f2041f484486a6383f628ce.png" alt="image" width="644" height="382" border="0" /></a></p>
+<p><span style="font-size: 14px;">3. 创建Car的实体和关系映射。</span></p>
+<p><span style="font-size: 14px;">现在我们需要的是车辆这个实体，包含名称、描述、价格、品牌、座位数几个属性。</span></p>
+<p><span style="font-size: 14px;">对应的实体和数据库中表的关系映射，OrchardNoCMS会自己来完成。所以我们只是定义实体。</span></p>
+<p><img src="http://images.cnitblog.com/blog/138896/201311/13222307-6337d351200a4ef397b876337617b04d.png" alt="" /></p>
+<p><span style="font-size: 14px;">这里说明下Orchard是如何来找到需要创建映射关系的实体类。</span></p>
+<p><span style="font-size: 14px;">首先需要关注的是CompositionStrategy 这个类。</span></p>
+<p><a href="http://images.cnitblog.com/blog/138896/201311/14124413-f581092975f44f6e8b7c73bf8ee25a3a.png"><img style="display: inline; border: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201311/14124414-cefa2248489044db8d758efa3f6c1e3a.png" alt="image" width="1028" height="459" border="0" /></a></p>
+<p><span style="font-size: 14px;">看看它都干了什么。J。它通过找到命名空间以.Models结束的并且包含属性有Id这个字段的类作为需要创建mapping的实体。然后通过创建RecordBlueprint来告诉NHibernate你应该让哪个类映射到哪张表。</span></p>
+<p><span style="font-size: 14px;">但是默认这里有很大的局限性。</span></p>
+<p><span style="font-size: 14px;">比如：我的主键不想叫Id，我想叫tablename+Id，那怎么办呢？我的表名比较特殊，不能和类同名怎么办？不着急，后面会说明。</span></p>
+<p><span style="font-size: 14px;">最终的实体关系映射会存放到APPData /site下某处，名字叫mapping.bin，你可以自己去找找看。</span></p>
+<p><span style="font-size: 14px;">4. 创建Service</span></p>
+<p><span style="font-size: 14px;">有了实体，接下来需要做的是创建一个Service。注意，如果你使用OrchardCMS，那么可以看到里面的数据库操作大都离不开内容管理。这里则直接是使用IRepository进行数据库操作。所以我们需要创建一个ICarInfoService接口，并实现它。</span></p>
+<p><a href="http://images.cnitblog.com/blog/138896/201311/14124415-0dc581dccd144704a6b913ef7a2ec334.png"><img style="display: inline; border-width: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201311/14124416-03e2e17b1cf240e8aa3520bf8485c20f.png" alt="image" width="1028" height="571" border="0" /></a></p>
+<p><span style="font-size: 14px;">上图中圈住的IDependency这个 接口，是所有需要自动注入到Autofac容器的接口都需要继承的。</span></p>
+<p><span style="font-size: 14px;">这里就需要说明一下Orchard的底层自动注入机制。看ShellContainerFactory.cs中的代码来完成所有的自动注入功能，同时它还结合Castle.DynamicProxy实现了AOP功能。所以大致来说，大部分的面向对象牛X的框架都离不开IoC和它上面的AOP。</span></p>
+<p><a href="http://images.cnitblog.com/blog/138896/201311/14124416-a62697022e8a4ba5aad983407a1e3fed.png"><img style="display: inline; border-width: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201311/14124423-3c693f7fa47b47cb977320cee0356d2d.png" alt="image" width="1028" height="451" border="0" /></a></p>
+<p><span style="font-size: 14px;">对于不同的注入方式和AOP在别的文章里介绍吧。</span></p>
+<p><span style="font-size: 14px;">5. 创建Controller和View</span></p>
+<p><span style="font-size: 14px;">创建好实体后，我们创建一个新增记录的Action。</span></p>
+<p><a href="http://images.cnitblog.com/blog/138896/201311/14124426-92957b34b05a4717a48db8e4d7a3884b.png"><img style="display: inline; border-width: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201311/14124427-db0397c301144f17b458bc4e2b029807.png" alt="image" width="674" height="746" border="0" /></a></p>
+<p><span style="font-size: 14px;">创建好对应的View，需要注意的是，这里Views文件夹下的子文件夹需要自己手动创建。</span></p>
+<p><a href="http://images.cnitblog.com/blog/138896/201311/14124427-f327c264736348719ca6ea005a86256d.png"><img style="display: inline; border-width: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201311/14124427-c84a9c842e724d95a8f6f32326abaa90.png" alt="image" width="714" height="795" border="0" /></a></p>
+<p><span style="font-size: 14px;">Index.cshtml为空，先不创建。本人的css不是很好，所以随便写了几个div。</span></p>
+<p><span style="font-size: 14px;">6. 创建路由</span></p>
+<p><span style="font-size: 14px;">如果不创建路由，也可以通过Orchard.car/Car/Add来访问上面创建的Action，但是我们为了简单，可以自己定义路由，所有自定义的路由都需要实现IRouteProvider这个接口。</span></p>
+<p><a href="http://images.cnitblog.com/blog/138896/201311/14124428-0935c638b52a4c55ab2cc54954a9bc92.png"><img style="display: inline; border-width: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201311/14124428-b501b3cf277a4783beaf5ae28575fb4c.png" alt="image" width="688" height="748" border="0" /></a></p>
+<p><span style="font-size: 14px;">现在就可以通过car/add来访问上面定义好的Action啦。</span></p>
+<p><span style="font-size: 14px;">7. 创建数据库表</span></p>
+<p><span style="font-size: 14px;">使用Orchard提供的DataMigration来创建表。方法如下：</span></p>
+<p><a href="http://images.cnitblog.com/blog/138896/201311/14124429-48e28c726e9c4975be04e92411a8a0a9.png"><img style="display: inline; border-width: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201311/14124429-c8b9b23759e342fab3ae5c38d9fde3c7.png" alt="image" width="786" height="542" border="0" /></a></p>
+<p><span style="font-size: 14px;">8. 启用模块。</span></p>
+<p><span style="font-size: 14px;">在刚才打开的orchard.exe中执行如下命令： feature enable orchard.car</span></p>
+<p><span style="font-size: 14px;"><a href="http://images.cnitblog.com/blog/138896/201311/13173413-589b0bb6741a4bb5b58db55d75a3d4fc.png"><img style="display: inline; border-width: 0px;" title="clip_image028" src="http://images.cnitblog.com/blog/138896/201311/13173414-4e4d90a99cba4715810a554d63bbdf58.png" alt="clip_image028" width="339" height="114" border="0" /></a></span></p>
+<p><span style="font-size: 14px;">以上完成模块的开发。</span></p>
+<p><span style="font-size: 14px;">以上只是理想的状态。现实总是有很多变态的需求。也希望大家提出自己的问题。</span></p>
+<p><span style="font-size: 14px;">待续。。。。。。。。。。。。。。</span></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Orchardnocms maintained by <a href="https://github.com/nicholaspei">nicholaspei</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>

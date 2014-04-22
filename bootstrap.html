@@ -1,0 +1,83 @@
+<html>
+ <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Orchardnocms : " />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Orchardnocms</title>
+  </head>
+ <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/nicholaspei/OrchardNoCMS">View on GitHub</a>
+
+          <h1 id="project_title">Orchardnocms</h1>
+          <h2 id="project_tagline"></h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/nicholaspei/OrchardNoCMS/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/nicholaspei/OrchardNoCMS/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+    <p><span style="font-family: 宋体;">&nbsp;</span></p>
+<p><span style="font-family: 宋体;">&nbsp;<a href="http://images.cnitblog.com/blog/138896/201401/261451220956674.png"><img style="display: inline; border-width: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201401/261451227043790.png" alt="image" width="644" height="423" border="0" /></a></span></p>
+<p><span style="font-family: 宋体;">按照几个月之前的计划，也应该写一个使用Bootstrap作为OrchardNoCMS的UI库。之前这段时间都是在学习IOS开发，没顾得上写，也没顾得上维护OrchardNoCMS代码。看看我的活动轨迹就知道啦：</span></p>
+<p><span style="font-family: 宋体;"><a href="http://images.cnitblog.com/blog/138896/201401/261451233298432.png"><img style="display: inline; border-width: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201401/261451267352858.png" alt="image" width="644" height="196" border="0" /></a>&nbsp;</span></p>
+<p><span style="font-family: 宋体;">最近这两周快过年了，刚好写一篇博客来消磨时间，也顺便希望可以对大家有所帮助。</span></p>
+<p><span style="font-family: 宋体;">由于我精简后的版本中去掉了Orchard.jQuery模块，所以首先我建立了一个模块来存放我需要的所有JS和CSS文件。</span></p>
+<p><span style="font-family: 宋体;"><a href="http://images.cnitblog.com/blog/138896/201401/261451272043015.png"><img style="display: inline; border-width: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201401/261451277822672.png" alt="image" width="349" height="428" border="0" /></a></span></p>
+<p><span style="font-family: 宋体;">创建一个ResourceManifest文件，它实现了接口IResourceManifestProvider。通过该类来把脚本和样式文件定义好。</span></p>
+<p><span style="font-family: 宋体;"><a href="http://images.cnitblog.com/blog/138896/201401/261451283602328.png"><img style="display: inline; border-width: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201401/261451289237755.png" alt="image" width="644" height="272" border="0" /></a></span></p>
+<p><span style="font-family: 宋体;">可以看到主要用到了jQuery,bootstrap,knockoutjs等，需要注意的是amberme.js是我们封装好的一个脚本，通过它可以方便的绑定数据。</span></p>
+<p><span style="font-family: 宋体;">接下来我们需要在当前皮肤的Layout页面中加入我们定义的JS文件和CSS文件。Orchard本身提供了一套资源管理机制。所以对应的引用机制你如果不了解可以先看一下下面的代码：</span></p>
+<p><span style="font-family: 宋体;"><a href="http://images.cnitblog.com/blog/138896/201401/261451297202112.png"><img style="display: inline; border-width: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201401/261451305631455.png" alt="image" width="644" height="372" border="0" /></a></span></p>
+<p><span style="font-family: 宋体;">对于JS文件的引用使用Script.Reuire()来获取JS文件，Style.Require()获取CSS文件。AtHead()方法表示该脚本需要放到Head节点，另外还有几种方法可以参考代码，或者自己试试。</span></p>
+<p><span style="font-family: 宋体;">接下来还是使用Orchard.Car模块作为例子也说明如何使用我们的UI库。</span></p>
+<p><span style="font-family: 宋体;">之前的Car模块有个CarController，我们对应的为它的Index这个Action创建一个Index.cshtml，对应的Add这个Action对应的添加一个Add.cshtml页面。</span></p>
+<p><span style="font-family: 宋体;">在Index页面中，首先我们需要种一排按钮，HTML如下：</span></p>
+<p><span style="font-family: 宋体;"><a href="http://images.cnitblog.com/blog/138896/201401/270928183128190.png"><img style="display: inline; border-width: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201401/270928187506591.png" alt="image" width="1028" height="112" border="0" /></a></span></p>
+<p><span style="font-family: 宋体;">绑定数据的列表HTML如下：</span></p>
+<p><span style="font-family: 宋体;"><a href="http://images.cnitblog.com/blog/138896/201401/270928192811262.png"><img style="display: inline; border-width: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201401/270928198599917.png" alt="image" width="644" height="277" border="0" /></a></span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><span style="font-family: 宋体;">后台只负责传过来数据，具体的列名自己在HTML种定义，有很大的灵活性。</span></p>
+<p><span style="font-family: 宋体;">页面 加载完成后，绑定数据的初始化如下：</span></p>
+<p><span style="font-family: 宋体;"><a href="http://images.cnitblog.com/blog/138896/201401/270928201418131.png"><img style="display: inline; border-width: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201401/270928203914589.png" alt="image" width="405" height="125" border="0" /></a></span></p>
+<p>&nbsp;</p>
+<p><span style="font-family: 宋体;">对应的还提供了很多功能，例如点击按钮后的回调，绑定数据前或者绑定完成后的函数调用等等。可以自己看看代码(Amberme.js)。</span></p>
+<p><span style="font-family: 宋体;"><a href="http://images.cnitblog.com/blog/138896/201401/270928207342018.png"><img style="display: inline; border: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201401/270928210788446.png" alt="image" width="644" height="433" border="0" /></a></span></p>
+<p><span style="font-family: 宋体;">运行界面如下：</span></p>
+<p><span style="font-family: 宋体;"><a href="http://images.cnitblog.com/blog/138896/201401/270928213918416.png"><img style="display: inline; border: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201401/270928217192616.png" alt="image" width="644" height="329" border="0" /></a></span></p>
+<p><span style="font-family: 宋体;">在上面种增删改的按钮时，我们已经看到buttony有个属性是data-template-url，新增按钮的这个属性为/car/add；所以当点击该按钮时，会弹出car控制器对应的add这个Action的View页面：</span></p>
+<p><span style="font-family: 宋体;"><a href="http://images.cnitblog.com/blog/138896/201401/270928220941802.png"><img style="display: inline; border: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201401/270928224532460.png" alt="image" width="644" height="383" border="0" /></a></span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><span style="font-family: 宋体;">弹出的页面必须是个Form，这样我们在提交表单时，使用jQuery.form的ajax提交，会有更好的体验，而所有这些提交和验证操作都已经在amberme.js中封装好。你只需要配置正则表达式或者是属性就行啦。</span></p>
+<p><span style="font-family: 宋体;">新增界面如下：</span></p>
+<p><span style="font-family: 宋体;"><a href="http://images.cnitblog.com/blog/138896/201401/270928228593402.png"><img style="display: inline; border: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201401/270928232039830.png" alt="image" width="593" height="484" border="0" /></a></span></p>
+<p><span style="font-family: 宋体;">以上就是OrchardNoCMS的Bootstrap示例，可以到<a href="https://github.com/nicholaspei/OrchardNoCMS">https://github.com/nicholaspei/OrchardNoCMS</a> 下载完整代码。</span></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Orchardnocms maintained by <a href="https://github.com/nicholaspei">nicholaspei</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>

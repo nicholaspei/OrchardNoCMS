@@ -1,0 +1,79 @@
+<html>
+ <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Orchardnocms : " />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Orchardnocms</title>
+  </head>
+ <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/nicholaspei/OrchardNoCMS">View on GitHub</a>
+
+          <h1 id="project_title">Orchardnocms</h1>
+          <h2 id="project_tagline"></h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/nicholaspei/OrchardNoCMS/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/nicholaspei/OrchardNoCMS/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+     <p>&nbsp;</p>
+<p><span style="font-family: 宋体;">Orchard CMS是针对CMS开发的，对于很多开发需求来说，内容管理这块儿可能并不需要，而需要它的模块式开发模式。所以我这里通过对OrchardCMS进行瘦身，去除 内容管理部分的内容，保留简单的运行环境和基础的模块。需要做的工作：</span></p>
+<p><span style="font-family: 宋体;">去除Orchard Framework的内容管理部分，同时去除Orchard Framework依赖内容管理的相关内容。</span></p>
+<p><span style="font-family: 宋体;">去除Orchard Core部分的部分module，只保留Sharpe和Setting两个模块。</span></p>
+<p><span style="font-family: 宋体;">去除内容管理和博客管理的相关模块，只保留支持模块启用和停用以及皮肤模块。</span></p>
+<p><span style="font-family: 宋体;">这里我只是对OrchardCMS的代码进行了瘦身，所以相关的license请参考Orchard CMS的。</span></p>
+<p>Github上的源代码： <a href="https://github.com/nicholaspei/OrchardNoCMS">https://github.com/nicholaspei/OrchardNoCMS</a></p>
+<p>如果你所在的地区网络不能访问github，请从下面的链接下载：http://pan.baidu.com/s/1zifoC</p>
+<p><span style="font-size: large; font-family: 宋体; color: #ff0000;">为什么需要对Orchard CMS瘦身？</span></p>
+<p><span style="font-size: large; font-family: 宋体; color: #ff0000;">在我们的项目中，需要一个类似于Java的OSGI框架。发现Orchard CMS是可以达到这个要求的，自己做的话，时间不够，整个成员能力也够呛。所以选择了Orchard CMS，但是这个CMS中，太多的数据库表和模块都是为了CMS服务的，而我们的业务中基本上不需要或者用CMS配置字段很难达到业务要求。于是我就对OrchardCMS进行了瘦身，只保留热插拔模块式开发,同时去除了大部分表，只保留6个表。</span></p>
+<p><span style="font-size: large; font-family: 宋体;">为了对得起开源，我就把自己整理好的代码分享出来，希望大家能够一起改进。<a href="https://github.com/nicholaspei/OrchardNoCMS">https://github.com/nicholaspei/OrchardNoCMS</a></span></p>
+<p>&nbsp;</p>
+<p><span style="font-size: large; font-family: 宋体;">首先看一下最后完成的代码目录和之前的代码目录：</span></p>
+<p><span style="font-family: 宋体;"><a href="http://images.cnitblog.com/blog/138896/201311/12171819-6b05e19fa9a148798ed613114c1625e3.png"><img style="display: inline; border-width: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201311/12171826-4c9a298e771040a6b94c7224c0375e6c.png" alt="image" width="742" height="772" border="0" /></a></span></p>
+<p><span style="font-family: 宋体;">只保留了相当少的一部分，这就是Orchard可以运行的最小框架了。Orchard.CodeGeneration是为了创建模块的。而HelloWorld模块是为了测试模块式开发创建的新模块。</span></p>
+<p><span style="font-family: 宋体;">当把ContentManagement部分的代码去掉时，真的是全屏报错啊。很蛋疼。。经过不懈的努力，让整个Orchard.Framework跑起来了。</span></p>
+<p><span style="font-family: 宋体;">接下来蛋疼的是Orchard.Core。这里最先包含太多模块，Container，Contents,Dashboard等，大部分都依赖于ContentManagement。最后通过分析代码，发现其实必须的模块式Settings和Shapes模块。</span></p>
+<p><span style="font-family: 宋体;">Settings来获取站点运行时需要的信息，当前语言，时区等。</span></p>
+<p><span style="font-family: 宋体;">Shapes是用来把上下文转换成Html返回给浏览器的。最初没有把Shapes改好，所以出现了Action执行了，但是View却为空，发现ViewEngine也找到了页面，却显示不出内容来。</span></p>
+<p><span style="font-family: 宋体;">默认的Orchard是提供了模块的管理页面，皮肤的管理页面等。我个人觉得其实只需要提供控制台的模块管理就可以啦。</span></p>
+<p><span style="font-family: 宋体;">支持的命令如下：</span></p>
+<p><span style="font-family: 宋体;"><a href="http://images.cnitblog.com/blog/138896/201311/12171826-a26b1cbab29946e1a703492b4799878c.png"><img style="display: inline; border-width: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201311/12171828-a28b9020d3fd4828aa8bb71f060fcb0c.png" alt="image" width="978" height="250" border="0" /></a></span></p>
+<p><span style="font-family: 宋体;">&nbsp;</span></p>
+<p><span style="font-family: 宋体;">默认命令中没有feature update，所以我增加了该命令，可以在模块的数据结构发生改变时，通过执行feature update来执行Migration。</span></p>
+<p><span style="font-family: 宋体;">另外，产品或者项目中，有共享模块的情况，所以接下来我会把Orchard.Package模块也集成进去。并加入自己的一些想法，加入NuGet更好的支持，让共享模块更加灵活。</span></p>
+<p><span style="font-family: 宋体;">&nbsp;</span></p>
+<p><span style="font-family: 宋体;">&nbsp;</span></p>
+<p><span style="font-family: 宋体;">希望Orchard爱好者可以关注该项目，试着使用它，并提出你的意见和建议。</span></p>
+<p><span style="font-family: 宋体;"><span style="color: #0000ff;">更新：</span></span></p>
+<p><span style="font-family: 宋体;"><span style="color: #0000ff;">1.昨天有同学说没有数据库，运行不了，发现时因为我的.gitignore文件里把*.sdf文件过滤掉了。已经更新。</span></span></p>
+<p><span style="font-family: 宋体;"><span style="color: #0000ff;">2.我会接下来写一系列文章结合现实的一些需求让大家深入了解下如何更好的开发一个模块。</span></span></p>
+<p><span style="font-family: 宋体;"><span style="color: #0000ff;">3.如何在不改变已经发布的模块而扩展功能。（修改关闭，扩展开放）</span></span></p>
+<p><span style="font-family: 宋体;"><span style="color: #0000ff;">4.模块之间如何做到运行依赖，而非依赖。（个人不是很推荐，只是现实中有时候需要用到）</span></span></p>
+<p><span style="font-family: 宋体;"><span style="color: #0000ff;">5.整合bootstrap，提供一套完整的UI解决方案。</span></span></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Orchardnocms maintained by <a href="https://github.com/nicholaspei">nicholaspei</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>

@@ -263,7 +263,6 @@ Full-Width Styles
   max-width: 640px;
   padding: 20px 10px;
   margin: 0 auto;
-  min-height: 500px;
 }
 
 #forkme_banner {
@@ -357,6 +356,7 @@ Full-Width Styles
 
 #main_content {
   padding-top: 40px;
+  min-height: 500px;
 }
 
 #footer_wrap {

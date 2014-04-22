@@ -1,0 +1,55 @@
+<html>
+ <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Orchardnocms : " />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Orchardnocms</title>
+  </head>
+ <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/nicholaspei/OrchardNoCMS">View on GitHub</a>
+
+          <h1 id="project_title">Orchardnocms</h1>
+          <h2 id="project_tagline">性能提升-停用模块更新监控</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/nicholaspei/OrchardNoCMS/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/nicholaspei/OrchardNoCMS/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+    <p>在Orchard官网文档中给出了一些性能提升建议。</p>
+<p>对于不太熟悉OrchardCMS的开发人员，你是否注意到Web站点下的Config文件夹中有一个HostComponents.config文件。它对于站点性能的提升非常重要。整个系统中有很多监控机制，比如模块更新了，.csproj更新了等等。</p>
+<p>我给大家说明的就是其中的一个配置对于性能的提升。</p>
+<p>首先，在源代码中你会发现一个DefaultOrchardHost.cs的文件，它里面有一段代码：</p>
+<p><a href="http://images.cnitblog.com/blog/138896/201404/221555204519735.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201404/221555207957164.png" alt="image" width="644" height="210" border="0" /></a></p>
+<p>&nbsp;</p>
+<p>当有扩展模块更新的时候，那么扩展加载器的协助工作类(有点绕口)就会自动去出发缓存，把OrchardHost_Extensions这个缓存的值给去掉，因此就需要执行下面的这些代码，重启站点。</p>
+<p>实际上，当我们的站点处于运行状态时，一个模块的更新是不需要去重启站点的，所以你需要修改HostComponents.config的如下配置：</p>
+<p><a href="http://images.cnitblog.com/blog/138896/201404/221555211231364.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201404/221555214514563.png" alt="image" width="642" height="117" border="0" /></a></p>
+<p>让监控不起作用，这样可以提高性能。</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Orchardnocms maintained by <a href="https://github.com/nicholaspei">nicholaspei</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>

@@ -103,7 +103,7 @@ namespace Orchard {
 
         private string ReadCommand(CommandHostContext context) {
             _output.WriteLine();
-            _output.Write("orchard> ");
+            _output.Write("orchard $ ");
             return _input.ReadLine();
         }
 

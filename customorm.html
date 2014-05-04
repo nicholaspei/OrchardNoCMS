@@ -1,0 +1,60 @@
+<html>
+ <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Orchardnocms : " />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Orchardnocms</title>
+  </head>
+ <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/nicholaspei/OrchardNoCMS">View on GitHub</a>
+
+          <h1 id="project_title">Orchardnocms</h1>
+          <h2 id="project_tagline">OrchardNoCMS实体关系映射扩展</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/nicholaspei/OrchardNoCMS/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/nicholaspei/OrchardNoCMS/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+    <p>在OrchardNoCMS中，默认的系统会把实体关系映射保存到mappings.bin文件中。</p>
+<p>如果不进行任何修改，默认的可以自动保存关系映射的model是有很大限制的。</p>
+<p>条件是model的命名空间必须是以Orchard开头，以Models结尾。CompositionStrategy.cs中可以看到判断一个类是否需要保存映射关系的代码：</p>
+<p><a href="http://images.cnitblog.com/blog/138896/201405/041114444232412.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201405/041114447836456.png" alt="image" width="644" height="156" border="0" /></a></p>
+<p>&nbsp;</p>
+<p>假设我们现在想按照公司的名称为Model的命名空间，加添完Model运行后，你会发现，在数据库中进行增删改查是没有数据的，因为根本没有生成关系映射。</p>
+<p>你可以通过n多种方式让你的Model生成映射，结果就一个，你需要让你的Model在执行这个方法时返回true。</p>
+<p>例如：我的实体都是以OrchardNoCMS开头的，那么我增加下面一行代码就可以啦。</p>
+<p><a href="http://images.cnitblog.com/blog/138896/201405/041114453616799.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201405/041114457059370.png" alt="image" width="644" height="192" border="0" /></a></p>
+<p>重新运行就可以进行数据库操作啦。</p>
+<p>&nbsp;</p>
+<p>另外，如果你需要自定义实体在数据库中的表名，请实现接口：IAutoMappingOverride</p>
+<p><a href="http://images.cnitblog.com/blog/138896/201405/041114460956956.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201405/041114464086985.png" alt="image" width="485" height="168" border="0" /></a></p>
+<p>&nbsp;</p>
+<p>可以定义主键，忽略属性等。</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Orchardnocms maintained by <a href="https://github.com/nicholaspei">nicholaspei</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>

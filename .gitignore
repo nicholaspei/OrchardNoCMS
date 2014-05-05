@@ -218,3 +218,4 @@ pip-log.txt
 #Mr Developer
 .mr.developer.cfg
 *.dll
+src/Orchard.Web/App_Data/Sites/Default/mappings.bin

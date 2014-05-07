@@ -1,0 +1,63 @@
+<html>
+ <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Orchardnocms : " />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Orchardnocms</title>
+  </head>
+ <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/nicholaspei/OrchardNoCMS">View on GitHub</a>
+
+          <h1 id="project_title">Orchardnocms</h1>
+          <h2 id="project_tagline">OrcharNoCMS中的发布订阅使用</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/nicholaspei/OrchardNoCMS/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/nicholaspei/OrchardNoCMS/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+    <p>对于Orchard里面的EventBus，没有太多的文章去介绍说明。它最好的应用是发布订阅的应用。</p>
+<p>使用介绍：</p>
+<p>在Car模块中，我们定义一个接口，继承IEventHandler接口。</p>
+<p><a href="http://images.cnitblog.com/blog/138896/201405/071837524016545.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201405/071837528232375.png" alt="image" width="644" height="142" border="0" /></a></p>
+<p>&nbsp;</p>
+<p>当我们在创建一条记录时，去执行所有该接口的实现。</p>
+<p>接下来是实现该接口：</p>
+<p><a href="http://images.cnitblog.com/blog/138896/201405/071837532457203.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201405/071837536042247.png" alt="image" width="644" height="267" border="0" /></a></p>
+<p>&nbsp;</p>
+<p>这里是一个验证的方法。当前台post过来的model里面Price&lt;0，我们就抛出异常，ValidationException。</p>
+<p>在Service中如何使用Handler呢？</p>
+<p><a href="http://images.cnitblog.com/blog/138896/201405/071837539176574.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201405/071837542296604.png" alt="image" width="981" height="522" border="0" /></a></p>
+<p>&nbsp;</p>
+<p>执行Create方法时，从容器中找到所有的ICarEventHandler并进行挨个执行，这时系统会捕获到该异常，直接返回请求，进行事务的回滚操作。操作失败。。</p>
+<p><a href="http://images.cnitblog.com/blog/138896/201405/071837545421933.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201405/071837550571491.png" alt="image" width="613" height="484" border="0" /></a></p>
+<p>&nbsp;</p>
+<p>因为永远不要相信用户输入，所以服务器端的验证，非常重要。这里只是提供给大家一个方法，能够把业务和验证逻辑分开，让代码更加清晰。</p>
+<p>除了进行数据正确性验证，还可以进行日志记录或者别的用途。。</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Orchardnocms maintained by <a href="https://github.com/nicholaspei">nicholaspei</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>

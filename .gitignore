@@ -219,3 +219,4 @@ pip-log.txt
 .mr.developer.cfg
 *.dll
 src/Orchard.Web/App_Data/Sites/Default/mappings.bin
+*.sdf

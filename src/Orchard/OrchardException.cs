@@ -23,4 +23,9 @@ namespace Orchard {
 
         public LocalizedString LocalizedMessage { get { return _localizedMessage; } }
     }
+
+    public class ValidationException : Exception
+    {
+
+    }
 }

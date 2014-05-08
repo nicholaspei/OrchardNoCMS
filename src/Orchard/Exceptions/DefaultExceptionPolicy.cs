@@ -38,6 +38,11 @@ namespace Orchard.Exceptions {
                 return false;
             }
 
+            if (sender is IEventBus && exception is ValidationException)
+            {
+                return false;
+            }
+
             Logger.Error(exception, "An unexpected exception was caught");
 
             do {

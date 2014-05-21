@@ -34,6 +34,7 @@ $(document).ready(function(){
 	/* ---------- Acivate Functions ---------- */
 	template_functions();
 	init_masonry();
+	debugger;
 	charts();
 	calendars();
 	growlLikeNotifications();

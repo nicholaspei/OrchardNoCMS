@@ -154,7 +154,12 @@ namespace Orchard.Environment.ShellBuilders {
             };
         }
 
-        private static bool IsRecord(Type type) {
+        private static bool IsRecord(Type type)
+        {
+            if (type.Namespace != null && type.Namespace.Contains("OrchardNoCMS") && type.Namespace.EndsWith("Models"))
+            {
+                return true;
+            }
             return ((type.Namespace ?? "").EndsWith(".Models") || (type.Namespace ?? "").EndsWith(".Records")) &&
                    type.GetProperty("Id") != null &&
                    (type.GetProperty("Id").GetAccessors() ?? Enumerable.Empty<MethodInfo>()).All(x => x.IsVirtual) &&

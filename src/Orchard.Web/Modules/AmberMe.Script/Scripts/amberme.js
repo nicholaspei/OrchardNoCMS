@@ -1,6 +1,6 @@
 ﻿; (function ($, window, document, undefined) {
 
-    var pluginName = 'koLoader',
+    var pluginName = 'amberme',
         version = '1.0.0';
 
 

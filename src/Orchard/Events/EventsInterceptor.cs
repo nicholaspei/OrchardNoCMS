@@ -38,8 +38,16 @@ namespace Orchard.Events {
             // acquire method:
             // static IEnumerable<T> IEnumerable.OfType<T>(this IEnumerable source)
             // where T is from returnType's IEnumerable<T>
-            var enumerableOfTypeT = _enumerableOfTypeTDictionary.GetOrAdd( returnType, type => typeof(Enumerable).GetGenericMethod("OfType", type.GetGenericArguments(), new[] { typeof(IEnumerable) }, typeof(IEnumerable<>)));
-            return enumerableOfTypeT.Invoke(null, new[] { results });
+            try
+            {
+                var enumerableOfTypeT = _enumerableOfTypeTDictionary.GetOrAdd(returnType, type => typeof(Enumerable).GetGenericMethod("OfType", type.GetGenericArguments(), new[] { typeof(IEnumerable) }, typeof(IEnumerable<>)));
+                return enumerableOfTypeT.Invoke(null, new[] { results });
+            }
+            catch (Exception)
+            {
+                return results;
+            }
+           
         }
     }
 

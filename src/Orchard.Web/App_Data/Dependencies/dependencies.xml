@@ -7,26 +7,20 @@
     <References />
   </Dependency>
   <Dependency>
-    <ModuleName>AuthHome.Car</ModuleName>
-    <VirtualPath>~/Modules/AuthHome.Car/bin/AuthHome.Car.dll</VirtualPath>
+    <ModuleName>Autohome.Car</ModuleName>
+    <VirtualPath>~/Modules/Autohome.Car/bin/Autohome.Car.dll</VirtualPath>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <References />
   </Dependency>
   <Dependency>
-    <ModuleName>Orchard.Car</ModuleName>
-    <VirtualPath>~/Modules/Orchard.Car/bin/Orchard.Car.dll</VirtualPath>
-    <LoaderName>PrecompiledExtensionLoader</LoaderName>
-    <References />
-  </Dependency>
-  <Dependency>
-    <ModuleName>Orchard.CarExtension</ModuleName>
-    <VirtualPath>~/Modules/Orchard.CarExtension/bin/Orchard.CarExtension.dll</VirtualPath>
+    <ModuleName>Autohome.CarExtension</ModuleName>
+    <VirtualPath>~/Modules/Autohome.CarExtension/bin/Autohome.CarExtension.dll</VirtualPath>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <References>
       <Reference>
-        <Name>Orchard.Car</Name>
+        <Name>Autohome.Car</Name>
         <LoaderName>PrecompiledExtensionLoader</LoaderName>
-        <VirtualPath>~/Modules/Orchard.Car/bin/Orchard.Car.dll</VirtualPath>
+        <VirtualPath>~/Modules/Autohome.Car/bin/Autohome.Car.dll</VirtualPath>
       </Reference>
     </References>
   </Dependency>

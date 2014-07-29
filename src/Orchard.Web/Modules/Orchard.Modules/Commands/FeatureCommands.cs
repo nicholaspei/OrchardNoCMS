@@ -27,8 +27,8 @@ namespace Orchard.Modules.Commands {
         [OrchardSwitch]
         public bool Summary { get; set; }
 
-        [CommandHelp("feature list [/Summary:true|false]\r\n\t" + "Display list of available features")]
-        [CommandName("feature list")]
+        [CommandHelp("feature -l [/Summary:true|false]\r\n\t" + "Display list of available features")]
+        [CommandName("feature -l")]
         [OrchardSwitches("Summary")]
         public void List() {
             var enabled = _shellDescriptor.Features.Select(x => x.Name);
@@ -56,8 +56,8 @@ namespace Orchard.Modules.Commands {
             }
         }
 
-        [CommandHelp("feature enable <feature-name-1> ... <feature-name-n>\r\n\t" + "Enable one or more features")]
-        [CommandName("feature enable")]
+        [CommandHelp("feature -e <feature-name-1> ... <feature-name-n>\r\n\t" + "Enable one or more features")]
+        [CommandName("feature -e")]
         public void Enable(params string[] featureNames) {
             Context.Output.WriteLine(T("Enabling features {0}", string.Join(",", featureNames)));
             bool listAvailableFeatures = false;
@@ -86,20 +86,19 @@ namespace Orchard.Modules.Commands {
                 Context.Output.WriteLine(T("Available features are : {0}", string.Join(",", availableFeatures)));
         }
 
-        [CommandHelp("feature disable <feature-name-1> ... <feature-name-n>\r\n\t" + "Disable one or more features")]
-        [CommandName("feature disable")]
+        [CommandHelp("feature -d <feature-name-1> ... <feature-name-n>\r\n\t" + "Disable one or more features")]
+        [CommandName("feature -d")]
         public void Disable(params string[] featureNames) {
             Context.Output.WriteLine(T("Disabling features {0}", string.Join(",", featureNames)));
             _moduleService.DisableFeatures(featureNames, true);
             Context.Output.WriteLine(T("Disabled features  {0}", string.Join(",", featureNames)));
         }
 
-        [CommandHelp("feature update <feature-name-1> ... <feature-name-n>\r\n\t" + "Disable one or more features")]
-        [CommandName("feature update")]
+        [CommandHelp("feature -u <feature-name-1> ... <feature-name-n>\r\n\t" + "Disable one or more features")]
+        [CommandName("feature -u")]
         public void Update(params string[] featureNames) {
             Context.Output.WriteLine(T("Start update features"));
-            _moduleService.DisableFeatures(featureNames);
-            _moduleService.EnableFeatures(featureNames);
+           _dataMigrationManager.Update(featureNames);
             Context.Output.WriteLine(T("Updated features  {0}", string.Join(",", featureNames)));
         }
     }

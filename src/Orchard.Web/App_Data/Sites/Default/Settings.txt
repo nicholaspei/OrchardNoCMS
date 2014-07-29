@@ -1,8 +1,8 @@
 State: Running
 Themes: 
 Name: Default
-DataProvider: SqlCe
-DataConnectionString: null
+DataProvider: SqlServer
+DataConnectionString:  Data Source=.;Initial Catalog=OrchardNoCMS;Persist Security Info=True;User ID=sa;Password=123.abc;
 DataTablePrefix: null
 RequestUrlHost: null
 RequestUrlPrefix: null

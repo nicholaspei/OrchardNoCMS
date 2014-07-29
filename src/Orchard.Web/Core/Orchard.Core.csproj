@@ -156,6 +156,9 @@
   <ItemGroup>
     <Content Include="Settings\Views\Start\StartPage.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Shapes\Views\_Modal.cshtml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

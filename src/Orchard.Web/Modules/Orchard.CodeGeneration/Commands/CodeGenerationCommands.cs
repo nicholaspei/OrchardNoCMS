@@ -50,8 +50,8 @@ namespace Orchard.CodeGeneration.Commands {
         [OrchardSwitch]
         public string BasedOn { get; set; }
 
-        [CommandHelp("codegen datamigration <feature-name> \r\n\t" + "Create a new Data Migration class")]
-        [CommandName("codegen datamigration")]
+        [CommandHelp("codegen -dm <feature-name> \r\n\t" + "Create a new Data Migration class")]
+        [CommandName("codegen -dm")]
         public void CreateDataMigration(string featureName) {
             Context.Output.WriteLine(T("Creating Data Migration for {0}", featureName));
             ExtensionDescriptor extensionDescriptor = _extensionManager.AvailableExtensions().FirstOrDefault(extension => DefaultExtensionTypes.IsModule(extension.ExtensionType) &&
@@ -109,8 +109,8 @@ namespace Orchard.CodeGeneration.Commands {
             Context.Output.WriteLine(T("Data migration created successfully in Module {0}", extensionDescriptor.Id));
         }
 
-        [CommandHelp("codegen module <module-name> [/IncludeInSolution:true|false]\r\n\t" + "Create a new Orchard module")]
-        [CommandName("codegen module")]
+        [CommandHelp("codegen -m <module-name> [/IncludeInSolution:true|false]\r\n\t" + "Create a new Orchard module")]
+        [CommandName("codegen -m")]
         [OrchardSwitches("IncludeInSolution")]
         public void CreateModule(string moduleName) {
             Context.Output.WriteLine(T("Creating Module {0}", moduleName));
@@ -124,8 +124,8 @@ namespace Orchard.CodeGeneration.Commands {
             Context.Output.WriteLine(T("Module {0} created successfully", moduleName));
         }
 
-        [CommandName("codegen theme")]
-        [CommandHelp("codegen theme <theme-name> [/CreateProject:true|false][/IncludeInSolution:true|false][/BasedOn:<theme-name>]\r\n\tCreate a new Orchard theme")]
+        [CommandName("codegen -t")]
+        [CommandHelp("codegen -t <theme-name> [/CreateProject:true|false][/IncludeInSolution:true|false][/BasedOn:<theme-name>]\r\n\tCreate a new Orchard theme")]
         [OrchardSwitches("IncludeInSolution,BasedOn,CreateProject")]
         public void CreateTheme(string themeName) {
             Context.Output.WriteLine(T("Creating Theme {0}", themeName));
@@ -146,8 +146,8 @@ namespace Orchard.CodeGeneration.Commands {
             Context.Output.WriteLine(T("Theme {0} created successfully", themeName));
         }
 
-        [CommandHelp("codegen controller <module-name> <controller-name>\r\n\t" + "Create a new Orchard controller in a module")]
-        [CommandName("codegen controller")]
+        [CommandHelp("codegen -c <module-name> <controller-name>\r\n\t" + "Create a new Orchard controller in a module")]
+        [CommandName("codegen -c")]
         public void CreateController(string moduleName, string controllerName) {
             Context.Output.WriteLine(T("Creating Controller {0} in Module {1}", controllerName, moduleName));
 
@@ -279,7 +279,7 @@ namespace Orchard.CodeGeneration.Commands {
         }
 
         private static bool IsSourceEnlistment() {
-            return File.Exists(Directory.GetParent(_orchardWebProj).Parent.FullName + "\\Orchard.sln");
+            return File.Exists(Directory.GetParent(_orchardWebProj).Parent.FullName + "\\OrchardNoCMS.sln");
         }
 
         private void CreateThemeFromTemplates(TextWriter output, string themeName, string baseTheme, string projectGuid, bool includeInSolution) {
@@ -406,7 +406,7 @@ namespace Orchard.CodeGeneration.Commands {
 
         private void TouchSolution(TextWriter output) {
             string rootWebProjectPath = HostingEnvironment.MapPath("~/Orchard.Web.csproj");
-            string solutionPath = Directory.GetParent(rootWebProjectPath).Parent.FullName + "\\Orchard.sln";
+            string solutionPath = Directory.GetParent(rootWebProjectPath).Parent.FullName + "\\OrchardNoCMS.sln";
             if (!File.Exists(solutionPath)) {
                 output.WriteLine(T("Warning: Solution file could not be found at {0}", solutionPath));
                 return;

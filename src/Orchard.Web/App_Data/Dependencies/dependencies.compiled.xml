@@ -4,36 +4,36 @@
     <ExtensionId>AmberMe.Script</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/AmberMe.Script/bin/AmberMe.Script.dll</VirtualPath>
-    <Hash>48fdc6e72c4b4594</Hash>
+    <Hash>48fe181c887d5866</Hash>
   </Dependency>
   <Dependency>
-    <ExtensionId>Orchard.Car</ExtensionId>
+    <ExtensionId>Autohome.Car</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
-    <VirtualPath>~/Modules/Orchard.Car/bin/Orchard.Car.dll</VirtualPath>
-    <Hash>48f31f056032f03b</Hash>
+    <VirtualPath>~/Modules/Autohome.Car/bin/Autohome.Car.dll</VirtualPath>
+    <Hash>48f76815d7f3f20f</Hash>
   </Dependency>
   <Dependency>
-    <ExtensionId>Orchard.CarExtension</ExtensionId>
+    <ExtensionId>Autohome.CarExtension</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
-    <VirtualPath>~/Modules/Orchard.CarExtension/bin/Orchard.CarExtension.dll</VirtualPath>
-    <Hash>925966552efc3ea2</Hash>
+    <VirtualPath>~/Modules/Autohome.CarExtension/bin/Autohome.CarExtension.dll</VirtualPath>
+    <Hash>9262125d21366cac</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>Orchard.CodeGeneration</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/Orchard.CodeGeneration/bin/Orchard.CodeGeneration.dll</VirtualPath>
-    <Hash>4917a7010d739b62</Hash>
+    <Hash>4917f8366b55412a</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>Orchard.Modules</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/Orchard.Modules/bin/Orchard.Modules.dll</VirtualPath>
-    <Hash>490136ea9b6bd293</Hash>
+    <Hash>4901881ff8abb6d5</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>Orchard.Themes</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/Orchard.Themes/bin/Orchard.Themes.dll</VirtualPath>
-    <Hash>48fd9ee702f15470</Hash>
+    <Hash>48fdf01c6077e32f</Hash>
   </Dependency>
 </Dependencies>

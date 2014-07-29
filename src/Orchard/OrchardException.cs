@@ -23,4 +23,6 @@ namespace Orchard {
 
         public LocalizedString LocalizedMessage { get { return _localizedMessage; } }
     }
+
+    
 }

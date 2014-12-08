@@ -17,4 +17,9 @@ namespace OrchardVNext {
 
         public LocalizedString LocalizedMessage { get { return _localizedMessage; } }
     }
+<<<<<<< HEAD:src/OrchardVNext/OrchardException.cs
+=======
+
+    
+>>>>>>> origin/master:src/Orchard/OrchardException.cs
 }

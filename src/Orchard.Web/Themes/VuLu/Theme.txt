@@ -1,7 +1,0 @@
-Name: VuLu
-Author: Bertrand Le Roy, Jonathan Wall
-Website: http://vulu.net
-Description: A theme derived from Classic that was built for VuLu
-Version: 1.0
-Tags: Classic, Serif, VuLu
-Zones: BeforeHeader, Header, Navigation, Messages, Featured, BeforeContent, Content, AfterContent, AsideSecond,  FooterQuadFirst, FooterQuadSecond, FooterQuadThird, FooterQuadFourth, Footer

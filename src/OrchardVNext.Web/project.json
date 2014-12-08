@@ -1,0 +1,20 @@
+﻿{
+    "version": "2.0.0-*",
+    "webroot": "wwwroot",
+    "exclude": "wwwroot/**/*.*",
+    "dependencies": {
+        "Microsoft.AspNet.Server.IIS": "1.0.0-beta2-*",
+        "Microsoft.AspNet.Mvc": "6.0.0-beta2-*",
+        "Microsoft.AspNet.Hosting": "1.0.0-beta2-*",
+        "Microsoft.AspNet.Server.WebListener": "1.0.0-beta2-*",
+        "OrchardVNext": ""
+    },
+    "commands": {
+        "web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://local.orchardvnext.test1.com;http://local.orchardvnext.demo.com"
+    },
+    "compilationOptions": { "define": [ "TRACE" ], "warningsAsErrors": true },
+    "frameworks": {
+        "aspnet50": { },
+        "aspnetcore50": { }
+    }
+}

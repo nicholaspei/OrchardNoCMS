@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNet.Mvc;
-using OrchardVNext.Test1;
 
 namespace OrchardVNext.Demo.Controllers {
     public class HomeController : Controller {

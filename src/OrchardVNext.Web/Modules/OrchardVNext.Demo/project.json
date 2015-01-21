@@ -1,8 +1,7 @@
-﻿{
+{
     "dependencies": {
         "Microsoft.AspNet.Mvc": "6.0.0-beta3-*",
-        "OrchardVNext": "",
-        "OrchardVNext.Test1": ""
+        "OrchardVNext": ""
     },
     "frameworks": {
         "aspnet50": { },

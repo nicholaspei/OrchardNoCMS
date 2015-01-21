@@ -1,9 +1,0 @@
-﻿{
-    "dependencies": {
-        "OrchardVNext": ""
-    },
-    "frameworks": {
-        "aspnet50": { },
-        "aspnetcore50": { }
-    }
-}

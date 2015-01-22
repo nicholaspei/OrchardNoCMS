@@ -12,4 +12,4 @@ git clone https://github.com/nicholaspei/OrchardNoCMS.git
 
 load in VS15 and Build - Check the project properties to make sure you are targetting the right runtime. (target the one you use as default in 'kvm list')
 
-Next run "k web" from Brochard\src\OrchardVNext.Web
+Next run "k web" from OrchardNoCMS\src\OrchardVNext.Web

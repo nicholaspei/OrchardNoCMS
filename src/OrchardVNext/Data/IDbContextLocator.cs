@@ -3,8 +3,8 @@ using Microsoft.Data.Entity;
 
 namespace OrchardVNext.Data
 {
-    public interface IDbContextLocator
+    public interface IDbContextLocator 
     {
-        DbContext For(Type enttiyType);
+        DbContext For(Type entityType);
     }
 }

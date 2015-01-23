@@ -52,8 +52,7 @@ namespace OrchardVNext.Environment.ShellBuilders {
             return new ShellDescriptor {
                 SerialNumber = -1,
                 Features = new[] {
-                    new ShellFeature {Name = "OrchardVNext.Framework"},
-                    new ShellFeature {Name = "OrchardVNext.Test1"},
+                    new ShellFeature {Name = "OrchardVNext.Framework"},                 
                     new ShellFeature {Name = "OrchardVNext.Demo" }
                 },
                 Parameters = Enumerable.Empty<ShellParameter>(),

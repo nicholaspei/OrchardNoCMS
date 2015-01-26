@@ -1,0 +1,63 @@
+<html>
+ <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Orchardnocms : " />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Orchardnocms</title>
+  </head>
+ <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/nicholaspei/OrchardNoCMS">View on GitHub</a>
+
+          <h1 id="project_title">Orchardnocms</h1>
+          <h2 id="project_tagline">如何在VS2015下运行VNext</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/nicholaspei/OrchardNoCMS/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/nicholaspei/OrchardNoCMS/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+    <p>由于VS2015还没有出来正式版，ASP.NET 5也是没有出来正式版。所以在你下载了OrchardNoCMS vNext的代码后，需要配置一些东西，才能启动项目，开始调试。</p>
+<p>需要注意以下几点：</p>
+<p>1、KVM是否安装，并且更新到最新版本。</p>
+<p><a title="https://github.com/aspnet/Home/wiki/version-manager" href="https://github.com/aspnet/Home/wiki/version-manager">https://github.com/aspnet/Home/wiki/version-manager</a></p>
+<p>&nbsp;</p>
+<p>设置默认的kvm版本为beta3版本。</p>
+<p><a href="http://images.cnitblog.com/blog/138896/201501/261012583626109.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201501/261012596444068.png" alt="image" width="644" height="297" border="0" /></a></p>
+<p>&nbsp;</p>
+<p>2、检查VS2015的Nuget包管理源。</p>
+<p><a href="http://images.cnitblog.com/blog/138896/201501/261013005666982.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201501/261013016288641.png" alt="image" width="644" height="421" border="0" /></a></p>
+<p>&nbsp;</p>
+<p>需要添加这个包管理源。这样才能获取到dev版本的MVC等。</p>
+<p>3、设置项目的Target KRE version。</p>
+<p><a href="http://images.cnitblog.com/blog/138896/201501/261013027223842.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="http://images.cnitblog.com/blog/138896/201501/261013035341958.png" alt="image" width="644" height="373" border="0" /></a></p>
+<p>&nbsp;</p>
+<p>确保每一个项目都选择了beta3版本。这样就可以在vs2015下启动调试了。</p>
+<p>&nbsp;</p>
+<p>如果不设置目标kre版本，可以直接通过k web在cmd下运行。</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Orchardnocms maintained by <a href="https://github.com/nicholaspei">nicholaspei</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>

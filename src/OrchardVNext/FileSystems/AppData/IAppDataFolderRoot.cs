@@ -1,4 +1,4 @@
-﻿using OrchardVNext.FileSystems.VirtualPath;
+﻿using OrchardVNext.Environment;
 
 namespace OrchardVNext.FileSystems.AppData {
     /// <summary>
@@ -17,19 +17,13 @@ namespace OrchardVNext.FileSystems.AppData {
     }
 
     public class AppDataFolderRoot : IAppDataFolderRoot {
-        private readonly IVirtualPathProvider _virtualPathProvider;
-        public AppDataFolderRoot(IVirtualPathProvider virtualPathProvider) {
-            _virtualPathProvider = virtualPathProvider;
+        private readonly IHostEnvironment _hostEnvironment;
+        public AppDataFolderRoot(IHostEnvironment hostEnvironment) {
+            _hostEnvironment = hostEnvironment;
         }
 
-        public string RootPath {
-            get { return "~/App_Data"; }
-        }
+        public string RootPath => "~/App_Data";
 
-        public string RootFolder {
-            get {
-                return _virtualPathProvider.MapPath(RootPath);
-            }
-        }
+        public string RootFolder => _hostEnvironment.MapPath(RootPath);
     }
 }

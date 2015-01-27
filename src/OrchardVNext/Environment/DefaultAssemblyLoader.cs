@@ -56,7 +56,7 @@ namespace OrchardVNext.Environment
             var compiler = new InternalRoslynCompiler(
                cache,
                cacheContextAccessor,
-               new NamedCacheDependencyProvider(), 
+               new NamedCacheDependencyProvider(),
                loadContextFactory,
                _fileWatcher,
                _applicationEnvironment,

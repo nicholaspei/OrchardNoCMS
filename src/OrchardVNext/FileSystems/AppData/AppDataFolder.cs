@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
-using OrchardVNext.Validation;
 using OrchardVNext.Localization;
+using OrchardVNext.Validation;
 
 namespace OrchardVNext.FileSystems.AppData {
     public class AppDataFolder : IAppDataFolder {
@@ -16,17 +17,9 @@ namespace OrchardVNext.FileSystems.AppData {
 
         public Localizer T { get; set; }
 
-        public string RootFolder {
-            get {
-                return _root.RootFolder;
-            }
-        }
+        public string RootFolder => _root.RootFolder;
 
-        public string AppDataPath {
-            get {
-                return _root.RootPath;
-            }
-        }
+        public string AppDataPath => _root.RootPath;
 
         private void MakeDestinationFileNameAvailable(string destinationFileName) {
             bool isDirectory = Directory.Exists(destinationFileName);
@@ -95,7 +88,7 @@ namespace OrchardVNext.FileSystems.AppData {
             return Combine(AppDataPath, path);
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
+        [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
         public void CreateFile(string path, string content) {
             using (var stream = CreateFile(path)) {
                 using (var tw = new StreamWriter(stream)) {
@@ -135,7 +128,7 @@ namespace OrchardVNext.FileSystems.AppData {
         }
 
         public DateTime GetFileLastWriteTimeUtc(string path) {
-            return File.GetLastWriteTime(CombineToPhysicalPath(path)).ToUniversalTime();
+            return File.GetLastWriteTimeUtc(CombineToPhysicalPath(path));
         }
 
         public bool FileExists(string path) {

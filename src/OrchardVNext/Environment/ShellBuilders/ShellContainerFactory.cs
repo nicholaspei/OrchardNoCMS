@@ -6,7 +6,6 @@ using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.DependencyInjection.Fallback;
 using Microsoft.Framework.DependencyInjection.ServiceLookup;
 using Microsoft.Framework.Runtime;
-using OrchardVNext.Data;
 using OrchardVNext.Environment.Configuration;
 using OrchardVNext.Environment.Extensions.Loaders;
 using OrchardVNext.Environment.ShellBuilders.Models;
@@ -38,8 +37,6 @@ namespace OrchardVNext.Environment.ShellBuilders {
             serviceCollection.AddInstance(blueprint.Descriptor);
             serviceCollection.AddInstance(blueprint);
 
-			serviceCollection.AddScoped(typeof(IRepository<>), typeof(Repository<>));	
-
             serviceCollection.AddMvc();
 
             serviceCollection.Configure<RazorViewEngineOptions>(options => {
@@ -57,16 +54,17 @@ namespace OrchardVNext.Environment.ShellBuilders {
                     .Where(itf => typeof(IDependency).IsAssignableFrom(itf))) {
                     Logger.Debug("Type: {0}, Interface Type: {1}", dependency.Type, interfaceType);
 
-                    serviceCollection.AddScoped(interfaceType, dependency.Type);
-
                     if (typeof(ISingletonDependency).IsAssignableFrom(interfaceType)) {
                         serviceCollection.AddSingleton(interfaceType, dependency.Type);
                     }
                     else if (typeof(IUnitOfWorkDependency).IsAssignableFrom(interfaceType)) {
                         serviceCollection.AddScoped(interfaceType, dependency.Type);
                     }
-                    else if (typeof(ITransientDependency).IsAssignableFrom(interfaceType)) {
+                    else if (typeof (ITransientDependency).IsAssignableFrom(interfaceType)) {
                         serviceCollection.AddTransient(interfaceType, dependency.Type);
+                    }
+                    else {
+                        serviceCollection.AddScoped(interfaceType, dependency.Type);
                     }
                 }
             }
@@ -84,7 +82,8 @@ namespace OrchardVNext.Environment.ShellBuilders {
         }
 
 
-        private static IServiceProvider BuildFallbackServiceProvider(IEnumerable<IServiceDescriptor> services, IServiceProvider fallback) {
+        private static IServiceProvider BuildFallbackServiceProvider(IEnumerable<IServiceDescriptor> services, 
+            IServiceProvider fallback) {
             var sc = HostingServices.Create(fallback);
             sc.Add(services);
 

@@ -1,11 +1,11 @@
-﻿using OrchardVNext.Localization;
+﻿using Microsoft.AspNet.Hosting;
 using Microsoft.Framework.Runtime;
-using System;
+using OrchardVNext.Localization;
 
 namespace OrchardVNext.Environment {
     public class DefaultHostEnvironment : HostEnvironment {
         public DefaultHostEnvironment(
-            IApplicationEnvironment applicationEnvrionment) : base(applicationEnvrionment) {
+            IApplicationEnvironment applicationEnvironment) : base(applicationEnvironment) {
             T = NullLocalizer.Instance;
         }
 

@@ -4,7 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
     <meta name="description" content="Orchardnocms : " />
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="../stylesheets/stylesheet.css">
 
     <title>Orchardnocms</title>
   </head>
@@ -31,6 +31,10 @@
     <p>由于VS2015还没有出来正式版，ASP.NET 5也是没有出来正式版。所以在你下载了OrchardNoCMS vNext的代码后，需要配置一些东西，才能启动项目，开始调试。</p>
 <p>需要注意以下几点：</p>
 <p>1、KVM是否安装，并且更新到最新版本。</p>
+<p>KVM安装：</p>
+<p>在dos下或者PowerShell窗口执行下面的脚本来安装kvm:</p>
+<p>@powershell -NoProfile -ExecutionPolicy unrestricted -Command "iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/aspnet/Home/master/kvminstall.ps1'))"</p>
+<p>&nbsp;</p>
 <p><a title="https://github.com/aspnet/Home/wiki/version-manager" href="https://github.com/aspnet/Home/wiki/version-manager">https://github.com/aspnet/Home/wiki/version-manager</a></p>
 <p>&nbsp;</p>
 <p>设置默认的kvm版本为beta3版本。</p>

@@ -20,7 +20,7 @@
 		"OrchardVNext": ""
     },
     "commands": {
-        "web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://local.orchardvnext.test1.com;http://local.orchardvnext.test2.com"
+        "web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://local.orchardvnext.test1.com;http://local.orchardvnext.test2.com;http://localhost:61562"
     },
     "compilationOptions": { "define": [ "TRACE" ], "warningsAsErrors": true },
     "frameworks": {

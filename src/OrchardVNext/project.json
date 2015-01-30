@@ -8,7 +8,10 @@
 		"Microsoft.Framework.Runtime.Roslyn": "1.0.0-beta3-*",
 		"Microsoft.Framework.ConfigurationModel": "1.0.0-beta3-*",
 		"Microsoft.Framework.ConfigurationModel.Json": "1.0.0-beta3-*",
-		"Microsoft.Framework.ConfigurationModel.Xml": "1.0.0-beta3-*"
+		"Microsoft.Framework.ConfigurationModel.Xml": "1.0.0-beta3-*",
+		"Microsoft.Framework.Logging": "1.0.0-*",
+		"Microsoft.Framework.Logging.Interfaces": "1.0.0-*",
+		"Microsoft.Framework.Logging.Console": "1.0.0-*"
 	},
 	"compilationOptions": { "define": [ "TRACE" ], "warningsAsErrors": true },
 	"frameworks": {

@@ -17,10 +17,11 @@ using OrchardVNext.FileSystems.VirtualPath;
 using OrchardVNext.FileSystems.WebSite;
 using OrchardVNext.Routing;
 using System.Reflection;
+using Microsoft.Framework.Logging.Console;
 
 namespace OrchardVNext.Environment {
     public class OrchardStarter {
-        private static void CreateHostContainer(IApplicationBuilder app) {
+        private static void CreateHostContainer(IApplicationBuilder app, ILoggerFactory loggerfactory) {
             app.UseServices(services => {
                 services.AddSingleton<IHostEnvironment, DefaultHostEnvironment>();
                 services.AddSingleton<IAppDataFolderRoot, AppDataFolderRoot>();
@@ -63,6 +64,8 @@ namespace OrchardVNext.Environment {
                 services.AddInstance<IServiceManifest>(new ServiceManifest(services));
             });
             
+			// add Logger
+	        loggerfactory.AddConsole();
             app.UseMiddleware<OrchardContainerMiddleware>();
             app.UseMiddleware<OrchardShellHostMiddleware>();
 
@@ -71,8 +74,8 @@ namespace OrchardVNext.Environment {
             app.UseMiddleware<OrchardRouterMiddleware>();
         }
 
-        public static IOrchardHost CreateHost(IApplicationBuilder app) {
-            CreateHostContainer(app);
+        public static IOrchardHost CreateHost(IApplicationBuilder app, ILoggerFactory loggerfactory) {
+            CreateHostContainer(app, loggerfactory);
 
             return app.ApplicationServices.GetService<IOrchardHost>();
         }

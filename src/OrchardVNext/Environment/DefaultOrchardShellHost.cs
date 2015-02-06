@@ -1,4 +1,5 @@
-﻿using OrchardVNext.Environment.Configuration;
+﻿using Microsoft.Framework.Logging;
+using OrchardVNext.Environment.Configuration;
 
 namespace OrchardVNext.Environment {
     public interface IOrchardShellHost {
@@ -6,13 +7,20 @@ namespace OrchardVNext.Environment {
         void EndRequest(ShellSettings shellSettings);
     }
 
-    public class DefaultOrchardShellHost : IOrchardShellHost {
+    public class DefaultOrchardShellHost : IOrchardShellHost
+    {
+	    private readonly ILogger _logger;
+
+	    public DefaultOrchardShellHost(ILoggerFactory loggerFactory)
+	    {
+		    _logger = loggerFactory.Create("VFramework");
+	    }
         void IOrchardShellHost.BeginRequest(ShellSettings settings) {
-            Logger.Debug("Begin Request for tenant {0}", settings.Name);
+			_logger.WriteInformation("Begin Request for tenant {0}", settings.Name);
         }
 
         void IOrchardShellHost.EndRequest(ShellSettings settings) {
-            Logger.Debug("End Request for tenant {0}", settings.Name);
+			_logger.WriteInformation("End Request for tenant {0}", settings.Name);
         }
     }
 }

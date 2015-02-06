@@ -2,7 +2,9 @@
     "dependencies": {
         "Microsoft.AspNet.Mvc": "6.0.0-beta3-*",
         "OrchardVNext": "",
-        "OrchardVNext.Test1": ""
+		"OrchardVNext.Test1": "",
+		"Microsoft.Framework.Logging.Interfaces": "1.0.0-beta3-*",
+		"Microsoft.Framework.Logging": "1.0.0-beta3-*"
     },
     "frameworks": {
         "aspnet50": { },

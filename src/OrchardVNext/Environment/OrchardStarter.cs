@@ -22,6 +22,7 @@ using Microsoft.Framework.Logging.Console;
 namespace OrchardVNext.Environment {
     public class OrchardStarter {
         private static void CreateHostContainer(IApplicationBuilder app, ILoggerFactory loggerfactory) {
+			loggerfactory.AddConsole((s, level) => level >= LogLevel.Information);
             app.UseServices(services => {
                 services.AddSingleton<IHostEnvironment, DefaultHostEnvironment>();
                 services.AddSingleton<IAppDataFolderRoot, AppDataFolderRoot>();
@@ -29,13 +30,13 @@ namespace OrchardVNext.Environment {
                 services.AddSingleton<IWebSiteFolder, WebSiteFolder>();
                 services.AddSingleton<IAppDataFolder, AppDataFolder>();
                 services.AddSingleton<IVirtualPathProvider, DefaultVirtualPathProvider>();
-
-                services.AddSingleton<ILoggerFactory, TestLoggerFactory>();
-
-                // Caching - Move out?
-                services.AddInstance<ICacheContextAccessor>(new CacheContextAccessor());
+				services.AddSingleton<ILogger, ConsoleLogger>();
+				services.AddSingleton<ILoggerFactory, TestLoggerFactory>();
+			
+				// Caching - Move out?
+				services.AddInstance<ICacheContextAccessor>(new CacheContextAccessor());
                 services.AddSingleton<ICache, Cache>();
-
+				
                 services.AddTransient<IOrchardHost, DefaultOrchardHost>();
                 {
                     services.AddSingleton<IShellSettingsManager, ShellSettingsManager>();
@@ -57,15 +58,12 @@ namespace OrchardVNext.Environment {
 
                         services.AddSingleton<IShellContainerFactory, ShellContainerFactory>();
                     }
-                }
-                
+                }                
                 services.AddTransient<IOrchardShellHost, DefaultOrchardShellHost>();
                 
                 services.AddInstance<IServiceManifest>(new ServiceManifest(services));
             });
-            
-			// add Logger
-	        loggerfactory.AddConsole();
+            		
             app.UseMiddleware<OrchardContainerMiddleware>();
             app.UseMiddleware<OrchardShellHostMiddleware>();
 

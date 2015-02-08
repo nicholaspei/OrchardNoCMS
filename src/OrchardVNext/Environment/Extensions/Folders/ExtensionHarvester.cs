@@ -4,6 +4,7 @@ using System.Linq;
 using OrchardVNext.Environment.Extensions.Models;
 using OrchardVNext.Utility.Extensions;
 using System.IO;
+using Microsoft.Framework.Logging;
 using OrchardVNext.FileSystems.WebSite;
 using OrchardVNext.Localization;
 
@@ -29,9 +30,10 @@ namespace OrchardVNext.Environment.Extensions.Folders {
         private const string SessionStateSection = "sessionstate";
 
         private readonly IWebSiteFolder _webSiteFolder;
-
-        public ExtensionHarvester(IWebSiteFolder webSiteFolder) {
+	    private readonly ILogger _logger;
+        public ExtensionHarvester(IWebSiteFolder webSiteFolder,ILogger logger) {
             _webSiteFolder = webSiteFolder;
+	        _logger = logger;
             T = NullLocalizer.Instance;
         }
 
@@ -49,7 +51,7 @@ namespace OrchardVNext.Environment.Extensions.Folders {
         }
 
         private List<ExtensionDescriptor> AvailableExtensionsInFolder(string path, string extensionType, string manifestName, bool manifestIsOptional) {
-            Logger.Information("Start looking for extensions in '{0}'...", path);
+            _logger.WriteInformation("Start looking for extensions in '{0}'...", path);
             var subfolderPaths = _webSiteFolder.ListDirectories(path);
             var localList = new List<ExtensionDescriptor>();
             foreach (var subfolderPath in subfolderPaths) {
@@ -62,7 +64,7 @@ namespace OrchardVNext.Environment.Extensions.Folders {
                         continue;
 
                     if (descriptor.Path != null && !descriptor.Path.IsValidUrlSegment()) {
-                        Logger.Error("The module '{0}' could not be loaded because it has an invalid Path ({1}). It was ignored. The Path if specified must be a valid URL segment. The best bet is to stick with letters and numbers with no spaces.",
+                        _logger.WriteError("The module '{0}' could not be loaded because it has an invalid Path ({1}). It was ignored. The Path if specified must be a valid URL segment. The best bet is to stick with letters and numbers with no spaces.",
                                      extensionId,
                                      descriptor.Path);
                         continue;
@@ -78,10 +80,11 @@ namespace OrchardVNext.Environment.Extensions.Folders {
                 }
                 catch (Exception ex) {
                     // Ignore invalid module manifests
-                    Logger.Error(ex, "The module '{0}' could not be loaded. It was ignored.", extensionId);
+	                _logger.WriteError(
+		                string.Format("The module '{0}' could not be loaded,exception. It was ignored.", extensionId), ex);
                 }
             }
-            Logger.Information("Done looking for extensions in '{0}': {1}", path, string.Join(", ", localList.Select(d => d.Id)));
+			_logger.WriteInformation("Done looking for extensions in '{0}': {1}", path, string.Join(", ", localList.Select(d => d.Id)));
             return localList;
         }
 

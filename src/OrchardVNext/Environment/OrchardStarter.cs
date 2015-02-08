@@ -22,7 +22,7 @@ using Microsoft.Framework.Logging.Console;
 namespace OrchardVNext.Environment {
     public class OrchardStarter {
         private static void CreateHostContainer(IApplicationBuilder app, ILoggerFactory loggerfactory) {
-			loggerfactory.AddConsole((s, level) => level >= LogLevel.Information);
+			loggerfactory.AddConsole();
             app.UseServices(services => {
                 services.AddSingleton<IHostEnvironment, DefaultHostEnvironment>();
                 services.AddSingleton<IAppDataFolderRoot, AppDataFolderRoot>();
@@ -30,9 +30,13 @@ namespace OrchardVNext.Environment {
                 services.AddSingleton<IWebSiteFolder, WebSiteFolder>();
                 services.AddSingleton<IAppDataFolder, AppDataFolder>();
                 services.AddSingleton<IVirtualPathProvider, DefaultVirtualPathProvider>();
-				services.AddSingleton<ILogger, ConsoleLogger>();
-				services.AddSingleton<ILoggerFactory, TestLoggerFactory>();
-			
+			    services.AddSingleton<ILoggerFactory, LoggerFactory>();
+				services.AddScoped<ILogger>((service) =>
+				{
+					var factory =app.ApplicationServices.GetService<ILoggerFactory>();
+					var logger = factory.Create("vframework");
+					return logger;
+				});
 				// Caching - Move out?
 				services.AddInstance<ICacheContextAccessor>(new CacheContextAccessor());
                 services.AddSingleton<ICache, Cache>();

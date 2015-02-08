@@ -15,6 +15,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Microsoft.Framework.Logging;
+using Microsoft.Framework.Logging.Console;
 
 namespace OrchardVNext.Environment.ShellBuilders {
     public interface IShellContainerFactory {
@@ -23,21 +25,24 @@ namespace OrchardVNext.Environment.ShellBuilders {
 
     public class ShellContainerFactory : IShellContainerFactory {
         private readonly IServiceProvider _serviceProvider;
+	    private readonly ILogger _logger;
 
-        public ShellContainerFactory(IServiceProvider serviceProvider) {
+        public ShellContainerFactory(IServiceProvider serviceProvider,ILogger logger) {
             _serviceProvider = serviceProvider;
+	        _logger = logger;
+
         }
 
         public IServiceProvider CreateContainer(ShellSettings settings, ShellBlueprint blueprint) {
             ServiceCollection serviceCollection = new ServiceCollection();
-
-            serviceCollection.AddScoped<IOrchardShell, DefaultOrchardShell>();
+		//	serviceCollection.AddScoped<ILogger, ConsoleLogger>();	     
+			serviceCollection.AddScoped<IOrchardShell, DefaultOrchardShell>();
             serviceCollection.AddScoped<IRouteBuilder, DefaultShellRouteBuilder>();
             serviceCollection.AddInstance(settings);
             serviceCollection.AddInstance(blueprint.Descriptor);
             serviceCollection.AddInstance(blueprint);
-
-            serviceCollection.AddMvc();
+		
+			serviceCollection.AddMvc();
 
             serviceCollection.Configure<RazorViewEngineOptions>(options => {
                 var expander = new ModuleViewLocationExpander();
@@ -52,7 +57,7 @@ namespace OrchardVNext.Environment.ShellBuilders {
             foreach (var dependency in blueprint.Dependencies) {
                 foreach (var interfaceType in dependency.Type.GetInterfaces()
                     .Where(itf => typeof(IDependency).IsAssignableFrom(itf))) {
-                    Logger.Debug("Type: {0}, Interface Type: {1}", dependency.Type, interfaceType);
+					_logger.WriteInformation("Type: {0}, Interface Type: {1}", dependency.Type.FullName, interfaceType.FullName);
 
                     if (typeof(ISingletonDependency).IsAssignableFrom(interfaceType)) {
                         serviceCollection.AddSingleton(interfaceType, dependency.Type);

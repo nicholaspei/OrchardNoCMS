@@ -2,14 +2,18 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Microsoft.Framework.Logging;
 
 namespace OrchardVNext.FileSystems.VirtualPath {
     public class DefaultVirtualPathProvider : IVirtualPathProvider {
         private readonly IHostEnvironment _hostEnvironment;
+	    private readonly ILogger _logger;
         public DefaultVirtualPathProvider(
-            IHostEnvironment hostEnvironment) {
+            IHostEnvironment hostEnvironment,
+			ILogger logger) {
             _hostEnvironment = hostEnvironment;
-        }
+	        _logger = logger;
+			}
 
         public virtual string GetDirectoryName(string virtualPath) {
             return Path.GetDirectoryName(MapPath(virtualPath)).Replace(Path.DirectorySeparatorChar, '/');
@@ -41,14 +45,14 @@ namespace OrchardVNext.FileSystems.VirtualPath {
                 //   VirtualPath    : ~/Bar/../Blah/Blah2
                 //   Result         : /Blah/Blah2  <= that is not an app relative path!
                 if (!result.StartsWith("~/")) {
-                    Logger.Information("Path '{0}' cannot be made app relative: Path returned ('{1}') is not app relative.", virtualPath, result);
+                    _logger.WriteInformation("Path '{0}' cannot be made app relative: Path returned ('{1}') is not app relative.", virtualPath, result);
                     return null;
                 }
                 return result;
             }
             catch (Exception e) {
                 // The initial path might have been invalid (e.g. path indicates a path outside the application root)
-                Logger.Information(e, "Path '{0}' cannot be made app relative", virtualPath);
+                _logger.WriteInformation("Path '{0}' cannot be made app relative,ex is{1}", virtualPath,e.Message);
                 return null;
             }
         }
@@ -75,7 +79,7 @@ namespace OrchardVNext.FileSystems.VirtualPath {
                     foreach (var term in terms) {
                         if (term == "..") {
                             if (depth == 0) {
-                                Logger.Information("Path '{0}' cannot be made app relative: Too many '..'", virtualPath);
+                                _logger.WriteInformation("Path '{0}' cannot be made app relative: Too many '..'", virtualPath);
                                 return true;
                             }
                             depth--;
@@ -137,7 +141,7 @@ namespace OrchardVNext.FileSystems.VirtualPath {
                 return FileExists(virtualPath);
             }
             catch (Exception e) {
-                Logger.Information(e, "File '{0}' can not be checked for existence. Assuming doesn't exist.", virtualPath);
+                _logger.WriteInformation("File '{0}' can not be checked for existence. Assuming doesn't exist. ex is:{1}", virtualPath,e.Message);
                 return false;
             }
         }

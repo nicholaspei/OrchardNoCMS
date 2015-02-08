@@ -3,6 +3,7 @@ using Microsoft.Framework.DependencyInjection;
 using System;
 using OrchardVNext.Environment.Descriptor.Models;
 using System.Linq;
+using Microsoft.Framework.Logging;
 
 namespace OrchardVNext.Environment.ShellBuilders {
     /// <summary>
@@ -19,21 +20,23 @@ namespace OrchardVNext.Environment.ShellBuilders {
     public class ShellContextFactory : IShellContextFactory {
         private readonly ICompositionStrategy _compositionStrategy;
         private readonly IShellContainerFactory _shellContainerFactory;
+	    private readonly ILogger _logger;
 
         public ShellContextFactory(
             ICompositionStrategy compositionStrategy,
-            IShellContainerFactory shellContainerFactory) {
+            IShellContainerFactory shellContainerFactory,
+			ILogger logger) {
             _compositionStrategy = compositionStrategy;
             _shellContainerFactory = shellContainerFactory;
-        }
+	        _logger = logger;
+			}
 
         ShellContext IShellContextFactory.CreateShellContext(
             ShellSettings settings) {
             Console.WriteLine("Creating shell context for tenant {0}", settings.Name);
 
             var blueprint = _compositionStrategy.Compose(settings, MinimumShellDescriptor());
-            var provider = _shellContainerFactory.CreateContainer(settings, blueprint);
-
+            var provider = _shellContainerFactory.CreateContainer(settings, blueprint);	       
             try {
                 return new ShellContext {
                     Settings = settings,
@@ -43,7 +46,7 @@ namespace OrchardVNext.Environment.ShellBuilders {
                 };
             }
             catch (Exception ex) {
-                Logger.Error(ex.ToString());
+                _logger.WriteError(ex.ToString());
                 throw;
             }
         }

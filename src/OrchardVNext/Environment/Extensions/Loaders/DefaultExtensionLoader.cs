@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.Versioning;
+using Microsoft.Framework.Logging;
 using Microsoft.Framework.Runtime;
 using OrchardVNext.Environment.Extensions.Models;
 using OrchardVNext.FileSystems.VirtualPath;
@@ -11,17 +12,19 @@ namespace OrchardVNext.Environment.Extensions.Loaders {
         private readonly IVirtualPathProvider _virtualPathProvider;
         private readonly IServiceProvider _serviceProvider;
         private readonly IAssemblyLoaderContainer _loaderContainer;
+	    private readonly ILogger _logger;
 
         public DefaultExtensionLoader(
             IVirtualPathProvider virtualPathProvider,
             IServiceProvider serviceProvider,
-            IAssemblyLoaderContainer container) {
+            IAssemblyLoaderContainer container,
+			ILogger logger) {
 
             _virtualPathProvider = virtualPathProvider;
             _serviceProvider = serviceProvider;
             _loaderContainer = container;
-
-        }
+	        _logger = logger;
+			}
 
         public string Name => GetType().Name;
 
@@ -44,7 +47,7 @@ namespace OrchardVNext.Environment.Extensions.Loaders {
             using (_loaderContainer.AddLoader(new ExtensionAssemblyLoader(plocation, _serviceProvider))) {
                 var assembly = Assembly.Load(new AssemblyName(descriptor.Id));
 
-                Logger.Information("Loaded referenced extension \"{0}\": assembly name=\"{1}\"", descriptor.Name, assembly.FullName);
+				_logger.WriteInformation("Loaded referenced extension \"{0}\": assembly name=\"{1}\"", descriptor.Name, assembly.FullName);
 
 
                 return new ExtensionEntry {

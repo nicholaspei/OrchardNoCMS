@@ -29,8 +29,7 @@ namespace OrchardVNext.Environment {
 
                 services.AddSingleton<IWebSiteFolder, WebSiteFolder>();
                 services.AddSingleton<IAppDataFolder, AppDataFolder>();
-                services.AddSingleton<IVirtualPathProvider, DefaultVirtualPathProvider>();
-			    services.AddSingleton<ILoggerFactory, LoggerFactory>();
+                services.AddSingleton<IVirtualPathProvider, DefaultVirtualPathProvider>();			    
 				services.AddScoped<ILogger>((service) =>
 				{
 					var factory =app.ApplicationServices.GetService<ILoggerFactory>();

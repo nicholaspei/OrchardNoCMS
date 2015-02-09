@@ -17,6 +17,7 @@ using System.Linq;
 using System.Reflection;
 using Microsoft.Framework.Logging;
 using Microsoft.Framework.Logging.Console;
+using OrchardVNext.Data;
 
 namespace OrchardVNext.Environment.ShellBuilders {
     public interface IShellContainerFactory {
@@ -41,7 +42,11 @@ namespace OrchardVNext.Environment.ShellBuilders {
             serviceCollection.AddInstance(settings);
             serviceCollection.AddInstance(blueprint.Descriptor);
             serviceCollection.AddInstance(blueprint);
-		
+
+			serviceCollection.AddEntityFramework()
+			 .AddInMemoryStore()
+			 .AddDbContext<DataContext>();
+
 			serviceCollection.AddMvc();
 
             serviceCollection.Configure<RazorViewEngineOptions>(options => {

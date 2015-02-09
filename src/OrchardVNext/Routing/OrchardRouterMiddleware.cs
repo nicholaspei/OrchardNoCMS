@@ -14,9 +14,7 @@ namespace OrchardVNext.Routing {
             _next = next;
         }
 
-        public async Task Invoke(HttpContext httpContext) {
-            Console.WriteLine("Begin Routing Request");
-
+        public async Task Invoke(HttpContext httpContext) {            
             var router = httpContext.RequestServices.GetService<IRouteBuilder>().Build();
 
             var context = new RouteContext(httpContext);
@@ -27,8 +25,6 @@ namespace OrchardVNext.Routing {
             if (!context.IsHandled) {
                 await _next.Invoke(httpContext);
             }
-
-            Console.WriteLine("End Routing Request");
         }
     }
 }

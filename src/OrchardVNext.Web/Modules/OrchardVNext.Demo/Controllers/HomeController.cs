@@ -8,7 +8,7 @@ namespace OrchardVNext.Demo.Controllers {
             _testDependency = testDependency;	       
         }
 
-        public ActionResult Index() {			
+        public ActionResult Index() {						
             return View("Index", _testDependency.SayHi());
         }
     }

@@ -9,23 +9,20 @@ using System.Linq;
 
 using OrchardVNext.Localization;
 using System.Reflection;
-using Microsoft.Framework.Logging;
 
 namespace OrchardVNext.Environment.Extensions {
     public class ExtensionManager : IExtensionManager {
         private readonly IEnumerable<IExtensionFolders> _folders;
         private readonly IEnumerable<IExtensionLoader> _loaders;
-	    private readonly ILogger _logger;
+        
         public Localizer T { get; set; }
 
         public ExtensionManager(
             IEnumerable<IExtensionFolders> folders,
-            IEnumerable<IExtensionLoader> loaders,
-			ILogger logger) {
+            IEnumerable<IExtensionLoader> loaders) {
 
             _folders = folders;
             _loaders = loaders.OrderBy(x => x.Order).ToArray();
-	        _logger = logger;
             T = NullLocalizer.Instance;
         }
 
@@ -75,13 +72,13 @@ namespace OrchardVNext.Environment.Extensions {
         }
 
         public IEnumerable<Feature> LoadFeatures(IEnumerable<FeatureDescriptor> featureDescriptors) {
-			_logger.WriteInformation("Loading features");
+            Logger.Information("Loading features");
 
             var result = featureDescriptors
                 .Select(descriptor => LoadFeature(descriptor))
                 .ToArray();
 
-			_logger.WriteInformation("Done loading features");
+            Logger.Information("Done loading features");
             return result;
         }
 
@@ -95,7 +92,7 @@ namespace OrchardVNext.Environment.Extensions {
                 extensionEntry = BuildEntry(extensionDescriptor);
             }
             catch (Exception ex) {
-				_logger.WriteError(string.Format("Error loading extension '{0}'", extensionId), ex);
+                Logger.Error(ex, "Error loading extension '{0}'", extensionId);
                 throw new OrchardException(T("Error while loading extension '{0}'.", extensionId), ex);
             }
 
@@ -138,7 +135,7 @@ namespace OrchardVNext.Environment.Extensions {
                     return entry;
             }
 
-            _logger.WriteWarning("No suitable loader found for extension \"{0}\"", descriptor.Id);
+            Logger.Warning("No suitable loader found for extension \"{0}\"", descriptor.Id);
             return null;
         }
     }

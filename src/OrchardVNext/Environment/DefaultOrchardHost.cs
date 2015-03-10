@@ -1,6 +1,5 @@
 ﻿using OrchardVNext.Environment.Extensions;
 using System;
-using Microsoft.Framework.Logging;
 
 namespace OrchardVNext.Environment {
     public interface IOrchardHost {
@@ -12,19 +11,12 @@ namespace OrchardVNext.Environment {
         //public DefaultOrchardHost(IExtensionLoaderCoordinator extensionLoaderCoordinator) {
         //    _extensionLoaderCoordinator = extensionLoaderCoordinator;
         //}
-	    private readonly ILogger _logger;
-
-	    public DefaultOrchardHost(ILoggerFactory loggerFactory)
-	    {
-		    _logger = loggerFactory.Create("VFramework");
-	    }
-
         void IOrchardHost.Initialize() {
-			_logger.WriteInformation("Initialize Host");
+            Logger.Information("Initialize Host");
 
-			//_extensionLoaderCoordinator.SetupExtensions();
+            //_extensionLoaderCoordinator.SetupExtensions();
 
-			_logger.WriteInformation("Host Initialized");
+            Logger.Information("Host Initialized");
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Microsoft.Framework.Logging;
+﻿using System;
+using Microsoft.Framework.Logging;
+using OrchardVNext.Demo.Models;
 using OrchardVNext.Environment.Configuration;
 
 namespace OrchardVNext.Demo
@@ -11,17 +13,28 @@ namespace OrchardVNext.Demo
     public class Class : ITestDependency
     {
         private readonly ShellSettings _shellSettings;
-	    private readonly ILogger _logger;
+	    private readonly Microsoft.Framework.Logging.ILogger _logger;	    
         public Class(ShellSettings shellSettings,ILogger logger)
         {
-            _shellSettings = shellSettings;
+            _shellSettings = shellSettings;	     
 	        _logger = logger;
         }
 
         public string SayHi()
         {
-			_logger.WriteError("The error info from demo!");
-            return string.Format("Hi from tenant {0}", _shellSettings.Name);
+	        try
+	        {
+				var testRecord = new TestRecord();
+				testRecord.Id = 1;
+				testRecord.TestLine = "xxx";				
+				_logger.WriteError("The error info from demo!");
+				return string.Format("Hi from tenant {0}", _shellSettings.Name);
+			}
+	        catch (Exception ex)
+	        {
+		        return ex.Message;
+	        }
+	     
         }
     }
 }

@@ -13,6 +13,8 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Text;
 using Microsoft.Framework.DependencyInjection;
+using Microsoft.Framework.Runtime.Common.DependencyInjection;
+using OrchardVNext;
 
 namespace Microsoft.Framework.Runtime.Roslyn {
     public class InternalRoslynCompiler {
@@ -44,8 +46,7 @@ namespace Microsoft.Framework.Runtime.Roslyn {
             Project project,
             ILibraryKey target,
             IEnumerable<IMetadataReference> incomingReferences,
-            IEnumerable<ISourceReference> incomingSourceReferences,
-            IList<IMetadataReference> outgoingReferences) {
+            IEnumerable<ISourceReference> incomingSourceReferences) {
             var path = project.ProjectDirectory;
             var name = project.Name.TrimStart('/');
 
@@ -73,7 +74,7 @@ namespace Microsoft.Framework.Runtime.Roslyn {
 
             var exportedReferences = incomingReferences.Select(ConvertMetadataReference);
 
-            Trace.TraceInformation("[{0}]: Compiling '{1}'", GetType().Name, name);
+            Logger.TraceInformation("[{0}]: Compiling '{1}'", GetType().Name, name);
             var sw = Stopwatch.StartNew();
 
             var compilationSettings = project.GetCompilerOptions(target.TargetFramework, target.Configuration)
@@ -81,10 +82,10 @@ namespace Microsoft.Framework.Runtime.Roslyn {
 
             var sourceFiles = Enumerable.Empty<String>();
             if (isMainAspect) {
-                sourceFiles = project.SourceFiles;
+                sourceFiles = project.Files.SourceFiles;
             }
             else if (isPreprocessAspect) {
-                sourceFiles = project.PreprocessSourceFiles;
+                sourceFiles = project.Files.PreprocessSourceFiles;
             }
 
             var parseOptions = new CSharpParseOptions(languageVersion: compilationSettings.LanguageVersion,
@@ -109,38 +110,17 @@ namespace Microsoft.Framework.Runtime.Roslyn {
                 references,
                 compilationSettings.CompilationOptions);
 
-            var aniSw = Stopwatch.StartNew();
-            Trace.TraceInformation("[{0}]: Scanning '{1}' for assembly neutral interfaces", GetType().Name, name);
+            compilation = ApplyVersionInfo(compilation, project, parseOptions);
 
-            var assemblyNeutralWorker = new AssemblyNeutralWorker(compilation, embeddedReferences);
-            assemblyNeutralWorker.FindTypeCompilations(compilation.Assembly.GlobalNamespace);
+            var compilationContext = new CompilationContext(compilation, project, target.TargetFramework, target.Configuration);
 
-            assemblyNeutralWorker.OrderTypeCompilations();
-            var assemblyNeutralTypeDiagnostics = assemblyNeutralWorker.GenerateTypeCompilations();
-
-            assemblyNeutralWorker.Generate();
-
-            aniSw.Stop();
-            Trace.TraceInformation("[{0}]: Found {1} assembly neutral interfaces for '{2}' in {3}ms", GetType().Name, assemblyNeutralWorker.TypeCompilations.Count(), name, aniSw.ElapsedMilliseconds);
-
-            foreach (var t in assemblyNeutralWorker.TypeCompilations) {
-                outgoingReferences.Add(new EmbeddedMetadataReference(t));
-            }
-
-            var newCompilation = assemblyNeutralWorker.Compilation;
-
-            newCompilation = ApplyVersionInfo(newCompilation, project, parseOptions);
-
-            var compilationContext = new CompilationContext(newCompilation,
-                incomingReferences.Concat(outgoingReferences).ToList(),
-                assemblyNeutralTypeDiagnostics,
-                project);
-
-            var modules = new List<ICompileModule>();
-
-            if (isMainAspect && project.PreprocessSourceFiles.Any()) {
+            if (isMainAspect && project.Files.PreprocessSourceFiles.Any()) {
                 try {
-                    modules = GetCompileModules(target).Modules;
+                    var modules = GetCompileModules(target).Modules;
+
+                    foreach (var m in modules) {
+                        compilationContext.Modules.Add(m);
+                    }
                 }
                 catch (Exception ex) {
                     var compilationException = ex.InnerException as RoslynCompilationException;
@@ -151,26 +131,26 @@ namespace Microsoft.Framework.Runtime.Roslyn {
                             compilationContext.Diagnostics.Add(diag);
                         }
 
-                        Trace.TraceError("[{0}]: Failed loading meta assembly '{1}'", GetType().Name, name);
+                        Logger.TraceError("[{0}]: Failed loading meta assembly '{1}'", GetType().Name, name);
                     }
                     else {
-                        Trace.TraceError("[{0}]: Failed loading meta assembly '{1}':\n {2}", GetType().Name, name, ex);
+                        Logger.TraceError("[{0}]: Failed loading meta assembly '{1}':\n {2}", GetType().Name, name, ex);
                     }
                 }
             }
 
-            if (modules.Count > 0) {
+            if (compilationContext.Modules.Count > 0) {
                 var precompSw = Stopwatch.StartNew();
-                foreach (var module in modules) {
+                foreach (var module in compilationContext.Modules) {
                     module.BeforeCompile(compilationContext);
                 }
 
                 precompSw.Stop();
-                Trace.TraceInformation("[{0}]: Compile modules ran in in {1}ms", GetType().Name, precompSw.ElapsedMilliseconds);
+                Logger.TraceInformation("[{0}]: Compile modules ran in in {1}ms", GetType().Name, precompSw.ElapsedMilliseconds);
             }
 
             sw.Stop();
-            Trace.TraceInformation("[{0}]: Compiled '{1}' in {2}ms", GetType().Name, name, sw.ElapsedMilliseconds);
+            Logger.TraceInformation("[{0}]: Compiled '{1}' in {2}ms", GetType().Name, name, sw.ElapsedMilliseconds);
 
             return compilationContext;
         }
@@ -258,9 +238,8 @@ namespace Microsoft.Framework.Runtime.Roslyn {
             var ctx = _cacheContextAccessor.Current;
 
             foreach (var d in dirs) {
-                if (ctx != null) {
+                if (ctx != null)
                     ctx.Monitor(new FileWriteTimeCacheDependency(d));
-                }
 
                 // TODO: Make the file watcher hand out cache dependencies as well
                 _watcher.WatchDirectory(d, ".cs");

@@ -1,11 +1,10 @@
-﻿using Microsoft.Framework.Runtime;
-using Microsoft.Framework.Runtime.Roslyn;
-using Microsoft.Framework.DependencyInjection;
-using OrchardVNext.Environment.Extensions.Loaders;
-using System;
-using System.Linq;
+﻿using System;
 using System.Reflection;
+using Microsoft.Framework.DependencyInjection;
+using Microsoft.Framework.Runtime;
 using Microsoft.Framework.Runtime.Loader;
+using Microsoft.Framework.Runtime.Roslyn;
+using OrchardVNext.Environment.Extensions.Loaders;
 using OrchardVNext.FileSystems.VirtualPath;
 
 namespace OrchardVNext.Environment
@@ -29,7 +28,7 @@ namespace OrchardVNext.Environment
             _virtualPathProvider = serviceProvider.GetService<IVirtualPathProvider>();
         }
         public Assembly Load(string name) {
-            Project project = null;
+            Project project;
 
             if (!Project.TryGetProject(_virtualPathProvider.Combine(_path, name), out project)) {
                 return null;
@@ -45,8 +44,7 @@ namespace OrchardVNext.Environment
 
             ModuleLoaderContext moduleContext = new ModuleLoaderContext(
                 _serviceProvider,
-                project.ProjectDirectory,
-                cache);
+                project.ProjectDirectory);
 
             moduleContext.DependencyWalker.Walk(name, project.Version, target.TargetFramework);
 
@@ -83,8 +81,7 @@ namespace OrchardVNext.Environment
             var compliationContext = compiler.CompileProject(project,
                 target,
                 exports.MetadataReferences,
-                exports.SourceReferences,
-                Enumerable.Empty<IMetadataReference>().ToList());
+                exports.SourceReferences);
             
             var roslynProjectReference = new RoslynProjectReference(compliationContext);
 

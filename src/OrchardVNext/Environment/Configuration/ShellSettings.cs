@@ -55,28 +55,10 @@ namespace OrchardVNext.Environment.Configuration {
             set { _values["RequestUrlPrefix"] = value; }
         }
 
-		/// <summary>
-		/// The database provider for the tenant
-		/// </summary>
-		public string DataProvider
-		{
-			get { return this["DataProvider"] ?? ""; }
-			set { this["DataProvider"] = value; }
-		}
-
-		/// <summary>
-		/// The database connection string
-		/// </summary>
-		public string DataConnectionString
-		{
-			get { return this["DataConnectionString"]; }
-			set { this["DataConnectionString"] = value; }
-		}
-
-		/// <summary>
-		/// The state is which the tenant is
-		/// </summary>
-		public TenantState State {
+        /// <summary>
+        /// The state is which the tenant is
+        /// </summary>
+        public TenantState State {
             get { return _tenantState; }
             set {
                 _tenantState = value;

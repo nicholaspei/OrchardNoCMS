@@ -17,29 +17,24 @@ using OrchardVNext.FileSystems.VirtualPath;
 using OrchardVNext.FileSystems.WebSite;
 using OrchardVNext.Routing;
 using System.Reflection;
-using Microsoft.Framework.Logging.Console;
 
 namespace OrchardVNext.Environment {
     public class OrchardStarter {
-        private static void CreateHostContainer(IApplicationBuilder app, ILoggerFactory loggerfactory) {
-			loggerfactory.AddConsole();
+        private static void CreateHostContainer(IApplicationBuilder app) {
             app.UseServices(services => {
                 services.AddSingleton<IHostEnvironment, DefaultHostEnvironment>();
                 services.AddSingleton<IAppDataFolderRoot, AppDataFolderRoot>();
 
                 services.AddSingleton<IWebSiteFolder, WebSiteFolder>();
                 services.AddSingleton<IAppDataFolder, AppDataFolder>();
-                services.AddSingleton<IVirtualPathProvider, DefaultVirtualPathProvider>();			    
-				services.AddScoped<ILogger>((service) =>
-				{
-					var factory =app.ApplicationServices.GetService<ILoggerFactory>();
-					var logger = factory.Create("vframework");
-					return logger;
-				});
-				// Caching - Move out?
-				services.AddInstance<ICacheContextAccessor>(new CacheContextAccessor());
+                services.AddSingleton<IVirtualPathProvider, DefaultVirtualPathProvider>();
+
+                services.AddSingleton<ILoggerFactory, TestLoggerFactory>();
+
+                // Caching - Move out?
+                services.AddInstance<ICacheContextAccessor>(new CacheContextAccessor());
                 services.AddSingleton<ICache, Cache>();
-				
+
                 services.AddTransient<IOrchardHost, DefaultOrchardHost>();
                 {
                     services.AddSingleton<IShellSettingsManager, ShellSettingsManager>();
@@ -61,12 +56,13 @@ namespace OrchardVNext.Environment {
 
                         services.AddSingleton<IShellContainerFactory, ShellContainerFactory>();
                     }
-                }                
+                }
+                
                 services.AddTransient<IOrchardShellHost, DefaultOrchardShellHost>();
                 
                 services.AddInstance<IServiceManifest>(new ServiceManifest(services));
             });
-            		
+            
             app.UseMiddleware<OrchardContainerMiddleware>();
             app.UseMiddleware<OrchardShellHostMiddleware>();
 
@@ -75,8 +71,8 @@ namespace OrchardVNext.Environment {
             app.UseMiddleware<OrchardRouterMiddleware>();
         }
 
-        public static IOrchardHost CreateHost(IApplicationBuilder app, ILoggerFactory loggerfactory) {
-            CreateHostContainer(app, loggerfactory);
+        public static IOrchardHost CreateHost(IApplicationBuilder app) {
+            CreateHostContainer(app);
 
             return app.ApplicationServices.GetService<IOrchardHost>();
         }

@@ -15,9 +15,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Microsoft.Framework.Logging;
-using Microsoft.Framework.Logging.Console;
-using OrchardVNext.Data;
 
 namespace OrchardVNext.Environment.ShellBuilders {
     public interface IShellContainerFactory {
@@ -26,28 +23,21 @@ namespace OrchardVNext.Environment.ShellBuilders {
 
     public class ShellContainerFactory : IShellContainerFactory {
         private readonly IServiceProvider _serviceProvider;
-	    private readonly ILogger _logger;
 
-        public ShellContainerFactory(IServiceProvider serviceProvider,ILogger logger) {
+        public ShellContainerFactory(IServiceProvider serviceProvider) {
             _serviceProvider = serviceProvider;
-	        _logger = logger;
-
         }
 
         public IServiceProvider CreateContainer(ShellSettings settings, ShellBlueprint blueprint) {
             ServiceCollection serviceCollection = new ServiceCollection();
-		//	serviceCollection.AddScoped<ILogger, ConsoleLogger>();	     
-			serviceCollection.AddScoped<IOrchardShell, DefaultOrchardShell>();
+
+            serviceCollection.AddScoped<IOrchardShell, DefaultOrchardShell>();
             serviceCollection.AddScoped<IRouteBuilder, DefaultShellRouteBuilder>();
             serviceCollection.AddInstance(settings);
             serviceCollection.AddInstance(blueprint.Descriptor);
             serviceCollection.AddInstance(blueprint);
 
-			serviceCollection.AddEntityFramework()
-			 .AddInMemoryStore()
-			 .AddDbContext<DataContext>();
-
-			serviceCollection.AddMvc();
+            serviceCollection.AddMvc();
 
             serviceCollection.Configure<RazorViewEngineOptions>(options => {
                 var expander = new ModuleViewLocationExpander();
@@ -55,14 +45,12 @@ namespace OrchardVNext.Environment.ShellBuilders {
             });
 
             var p = _serviceProvider.GetService<IOrchardLibraryManager>();
-            //serviceCollection.AddScoped<IActionSelector, DefaultActionSelectorTest>();
-            //serviceCollection.AddTransient<INestedProvider<ActionDescriptorProviderContext>, ControllerActionDescriptorProviderTest>();
             serviceCollection.AddInstance<IAssemblyProvider>(new DefaultAssemblyProviderTest(p, _serviceProvider, _serviceProvider.GetService<IAssemblyLoaderContainer>()));
 
             foreach (var dependency in blueprint.Dependencies) {
                 foreach (var interfaceType in dependency.Type.GetInterfaces()
                     .Where(itf => typeof(IDependency).IsAssignableFrom(itf))) {
-					_logger.WriteInformation("Type: {0}, Interface Type: {1}", dependency.Type.FullName, interfaceType.FullName);
+                    Logger.Debug("Type: {0}, Interface Type: {1}", dependency.Type, interfaceType);
 
                     if (typeof(ISingletonDependency).IsAssignableFrom(interfaceType)) {
                         serviceCollection.AddSingleton(interfaceType, dependency.Type);
